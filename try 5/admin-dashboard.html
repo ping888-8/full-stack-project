@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | CineWave</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://kit.fontawesome.com/a2e0e6adf4.js" crossorigin="anonymous"></script>
+  
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: white;
+      font-family: "Roboto", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .dashboard-container {
+      margin-left: 250px;
+      padding: 30px;
+      min-height: 100vh;
+    }
+
+    /* Sidebar Admin */
+    .admin-sidebar {
+      width: 250px;
+      height: 100vh;
+      background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
+      position: fixed;
+      left: 0;
+      top: 0;
+      padding-top: 20px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+
+    .admin-sidebar h2 {
+      color: #4dbf00;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 24px;
+    }
+
+    .admin-menu {
+      list-style: none;
+      padding: 0;
+    }
+
+    .admin-menu li {
+      padding: 15px 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      border-left: 3px solid transparent;
+    }
+
+    .admin-menu li:hover,
+    .admin-menu li.active {
+      background-color: #1e1e1e;
+      border-left: 3px solid #4dbf00;
+    }
+
+    .admin-menu li i {
+      margin-right: 10px;
+      width: 20px;
+    }
+
+    /* Header */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #333;
+    }
+
+    .dashboard-header h1 {
+      color: #4dbf00;
+      font-size: 32px;
+    }
+
+    .logout-btn {
+      background: #ff4444;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: #cc0000;
+    }
+
+    /* Section */
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+      animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      border-left: 4px solid #4dbf00;
+    }
+
+    .stat-card h3 {
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .stat-card .number {
+      color: #4dbf00;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    /* Tables */
+    .data-table {
+      width: 100%;
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .data-table thead {
+      background-color: #2a2a2a;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #333;
+    }
+
+    .data-table th {
+      color: #4dbf00;
+      font-weight: bold;
+    }
+
+    .data-table tr:hover {
+      background-color: #252525;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin: 0 5px;
+    }
+
+    .btn-primary {
+      background: #4dbf00;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #3a9c00;
+    }
+
+    .btn-danger {
+      background: #ff4444;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #cc0000;
+    }
+
+    .btn-warning {
+      background: #ffa500;
+      color: white;
+    }
+
+    .btn-warning:hover {
+      background: #cc8400;
+    }
+
+    .btn-add {
+      background: #4dbf00;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    .btn-add:hover {
+      background: #3a9c00;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-content h2 {
+      color: #4dbf00;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #ccc;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      background: #2a2a2a;
+      border: 1px solid #444;
+      border-radius: 5px;
+      color: white;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    /* Badge */
+    .badge {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .badge-success {
+      background: #4dbf00;
+      color: white;
+    }
+
+    .badge-danger {
+      background: #ff4444;
+      color: white;
+    }
+
+    .badge-warning {
+      background: #ffa500;
+      color: white;
+    }
+
+    .badge-admin {
+      background: #9b59b6;
+      color: white;
+    }
+
+    /* Search Bar */
+    .search-bar {
+      margin-bottom: 20px;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 12px;
+      background: #1e1e1e;
+      border: 1px solid #444;
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+    }
+
+    /* Loading Spinner */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      font-size: 18px;
+      color: #888;
+    }
+
+    .loading i {
+      font-size: 48px;
+      color: #4dbf00;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar Admin -->
+  <div class="admin-sidebar">
+    <h2>🎬 CineWave Admin</h2>
+    <ul class="admin-menu">
+      <li class="active" data-section="dashboard">
+        <i class="fas fa-chart-line"></i> Dashboard
+      </li>
+      <li data-section="users">
+        <i class="fas fa-users"></i> Users
+      </li>
+      <li data-section="movies">
+        <i class="fas fa-film"></i> Movies
+      </li>
+      <li data-section="showtimes">
+        <i class="fas fa-clock"></i> Showtimes
+      </li>
+      <li data-section="bookings">
+        <i class="fas fa-ticket-alt"></i> Bookings
+      </li>
+      <li data-section="tickets">
+        <i class="fas fa-qrcode"></i> Ticket Verification
+      </li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="dashboard-container">
+    <!-- Header -->
+    <div class="dashboard-header">
+      <h1 id="sectionTitle">Dashboard</h1>
+      <button class="logout-btn" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard" class="section active">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Total Users</h3>
+          <div class="number" id="totalUsers">0</div>
+        </div>
+        <div class="stat-card">
+          <h3>Total Movies</h3>
+          <div class="number" id="totalMovies">0</div>
+        </div>
+        <div class="stat-card">
+          <h3>Total Bookings</h3>
+          <div class="number" id="totalBookings">0</div>
+        </div>
+        <div class="stat-card">
+          <h3>Revenue (FCFA)</h3>
+          <div class="number" id="totalRevenue">0</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 30px;">Recent Bookings</h3>
+      <div id="recentBookingsTable"></div>
+    </div>
+
+    <!-- Users Section -->
+    <div id="users" class="section">
+      <div class="search-bar">
+        <input type="text" id="userSearch" placeholder="Search users by name or email...">
+      </div>
+      <div id="usersTable"></div>
+    </div>
+
+    <!-- Movies Section -->
+    <div id="movies" class="section">
+      <button class="btn-add" id="addMovieBtn">
+        <i class="fas fa-plus"></i> Add New Movie
+      </button>
+      <div class="search-bar">
+        <input type="text" id="movieSearch" placeholder="Search movies...">
+      </div>
+      <div id="moviesTable"></div>
+    </div>
+
+    <!-- Showtimes Section -->
+    <div id="showtimes" class="section">
+      <button class="btn-add" id="addShowtimeBtn">
+        <i class="fas fa-plus"></i> Add New Showtime
+      </button>
+      <div id="showtimesTable"></div>
+    </div>
+
+    <!-- Bookings Section -->
+    <div id="bookings" class="section">
+      <div class="search-bar">
+        <input type="text" id="bookingSearch" placeholder="Search bookings by ticket ID or user...">
+      </div>
+      <div id="bookingsTable"></div>
+    </div>
+
+    <!-- Ticket Verification Section -->
+    <div id="tickets" class="section">
+      <h3>Verify Ticket</h3>
+      <div class="search-bar">
+        <input type="text" id="ticketIdInput" placeholder="Enter Ticket ID (e.g., CW-ABC12345)">
+      </div>
+      <button class="btn-primary" id="verifyTicketBtn">Verify Ticket</button>
+      <div id="ticketResult" style="margin-top: 20px;"></div>
+    </div>
+  </div>
+
+  <!-- Modal for Add/Edit Movie -->
+  <div id="movieModal" class="modal">
+    <div class="modal-content">
+      <h2 id="movieModalTitle">Add New Movie</h2>
+      <form id="movieForm">
+        <div class="form-group">
+          <label>Title *</label>
+          <input type="text" id="movieTitle" required>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="movieDescription"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Duration (minutes) *</label>
+          <input type="number" id="movieDuration" required>
+        </div>
+        <div class="form-group">
+          <label>Poster URL</label>
+          <input type="text" id="moviePoster" placeholder="img/movie.jpg">
+        </div>
+        <div class="form-group">
+          <label>Release Date</label>
+          <input type="date" id="movieReleaseDate">
+        </div>
+        <div class="modal-buttons">
+          <button type="button" class="btn btn-danger" id="closeMovieModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal for Add Showtime -->
+  <div id="showtimeModal" class="modal">
+    <div class="modal-content">
+      <h2>Add New Showtime</h2>
+      <form id="showtimeForm">
+        <div class="form-group">
+          <label>Movie *</label>
+          <select id="showtimeMovie" required></select>
+        </div>
+        <div class="form-group">
+          <label>Room *</label>
+          <select id="showtimeRoom" required></select>
+        </div>
+        <div class="form-group">
+          <label>Date *</label>
+          <input type="date" id="showtimeDate" required>
+        </div>
+        <div class="form-group">
+          <label>Start Time *</label>
+          <input type="time" id="showtimeTime" required>
+        </div>
+        <div class="form-group">
+          <label>Price (FCFA) *</label>
+          <input type="number" id="showtimePrice" required value="1500">
+        </div>
+        <div class="modal-buttons">
+          <button type="button" class="btn btn-danger" id="closeShowtimeModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="api-helper.js"></script>
+  <script src="admin-dashboard.js"></script>
+</body>
+</html>

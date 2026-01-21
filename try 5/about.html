@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | CineWave</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Extra styling for About page */
+    body {
+      background-color: #151515;
+      color: white;
+      font-family: "Roboto", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #about-hero {
+      text-align: center;
+      padding: 20px 20px 40px;
+      background-image: url("img/cinema.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+
+    #about-hero h1 {
+      font-size: 42px;
+      color: #4dbf00;
+      font-family: "Roboto", sans-serif;
+    }
+
+    #about-hero p {
+      max-width: 700px;
+      margin: 15px auto 0;
+      color: #ccc;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .team-section {
+      padding: 60px 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      justify-items: center;
+    }
+
+    .team-card {
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      overflow: hidden;
+      width: 250px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+      text-align: center;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .team-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 25px rgba(77,191,0,0.4);
+    }
+
+    .team-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .team-card h3 {
+      margin-top: 15px;
+      font-family: "Sen", sans-serif;
+      color: #4dbf00;
+    }
+
+    .team-card p {
+      color: #ccc;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .contact-section {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid #333;
+    }
+
+    .contact-section a {
+      background-color: #4dbf00;
+      color: white;
+      padding: 10px 25px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.3s;
+      margin: 0 10px;
+    }
+
+    .contact-section a:hover {
+      background-color: #3a9c00;
+    }
+
+    .logo-container {
+      flex: 3;
+    }
+
+    .logo {
+      font-size: 30px;
+      color: #4dbf00;
+      font-family: "Sen", sans-serif;
+    }
+
+    @media (max-width: 768px) {
+      #about-hero h1 {
+        font-size: 32px;
+      }
+      #about-hero p {
+        font-size: 16px;
+      }
+      .team-section {
+        padding: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-container">
+      <div class="logo-container">
+        <h1 class="logo">CineWave 🎬</h1>
+      </div>
+      <div class="menu-container">
+        <ul class="menu-list">
+          <li class="menu-list-item"><a href="index.html"><strong>Home</strong></a></li>
+          <li class="menu-list-item"><a href="about.html"><strong>About Us</strong></a></li>
+        </ul>
+      </div>
+      <div class="profile-container">
+        <img class="profile-picture" src="img/profile.jpg" alt="Profile" />
+        <div class="profile-text-container">
+          <strong>Profile</strong>
+        </div>
+        <div class="toggle">
+          <i class="fas fa-moon toggle-icon"></i>
+          <i class="fas fa-sun toggle-icon"></i>
+          <div class="toggle-ball"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="about-hero">
+    <h1>Meet the Visionaries</h1>
+    <p><h2>A glimpse into the talented individuals who brought this cinematic masterpiece to life.</h2></p>
+    <p>
+      The CineWave development team is a group of six passionate year 3 engineering students specialising in Systems, Networks and Telecommunication — Together we built CineWave, a smart cinema booking platform designed to make movie nights smoother and funnier.  
+      This project combines our shared love for cinema, design, and technology.
+    </p>
+  </section>
+
+  <section class="team-section">
+    <div class="team-card">
+      <img src="img/abada.jpg" alt="Team Member 1">
+      <h3>Cyrielle ABADA</h3>
+      <p>Frontend Developer</p>
+    </div>
+    <div class="team-card">
+      <img src="img/ralph.jpg" alt="Team Member 2">
+      <h3>Ralph AROUNG</h3>
+      <p>Frontend Developer</p>
+    </div>
+    <div class="team-card">
+      <img src="img/mckale.jpg" alt="Team Member 3">
+      <h3>McKale BAKOP</h3>
+      <p>Frontend Developer x UI/UX Designer x Database Engineer</p>
+    </div>
+    <div class="team-card">
+      <img src="img/audrey.jpg" alt="Team Member 4">
+      <h3>Audrey NGNINGHA</h3>
+      <p>Frontend Developer</p>
+    </div>
+    <div class="team-card">
+      <img src="img/senchrist.jpg" alt="Team Member 5">
+      <h3>Senchrist NGOUPAYO</h3>
+      <p>Database Engineer</p>
+    </div>
+    <div class="team-card">
+      <img src="img/marco.jpg" alt="Team Member 6">
+      <h3>Marc OUETE <br><h4>Aka Marksman</h4></br></h3>
+      <p>Database Engineer x Back-end Developer </p>
+    </div>
+  </section>
+
+  <div class="contact-section">
+    <a href="mailto:contact@cinewave.com">Contact Us</a>
+    <a href="index.html">Back to Home</a>
+  </div>
+  <script src="app.js"></script>
+  <script>
+    // --- CineWave Auth System Integration ---
+    const user = JSON.parse(localStorage.getItem("cinewaveUser"));
+    const profileContainer = document.querySelector(".profile-container");
+    const profileText = document.querySelector(".profile-text-container") || document.createElement("div");
+
+    if (!user) {
+      // Redirect to login page if user not logged in
+      window.location.href = "login.html";
+    } else {
+      // Show "Welcome, [Name]" and Logout button
+      if (profileText) {
+        profileText.innerHTML = `
+          <strong>${user.name.split(" ")[0]} 🎬</strong>
+          <button id="logoutBtn" style="
+            margin-left:10px;
+            background:#4dbf00;
+            border:none;
+            color:white;
+            padding:5px 10px;
+            border-radius:6px;
+            cursor:pointer;
+            font-size:14px;
+          ">Logout</button>
+        `;
+      }
+    }
+
+    // Handle logout
+    document.addEventListener("click", (e) => {
+      if (e.target.id === "logoutBtn") {
+        localStorage.removeItem("cinewaveUser");
+        alert("You have been logged out.");
+        window.location.href = "login.html";
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movie Details | CineWave</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* additional styling specific to this page */
+
+    .details-container {
+    position: relative;
+    min-height: 100vh;
+    padding: 80px 60px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: flex-start;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    /* 🔥 Image de fond */
+    background-image: url("img/cinema.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    }
+
+
+    .poster {
+      width: 350px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    }
+
+    .movie-info {
+      max-width: 600px;
+    }
+
+    .movie-info h1 {
+      color: #4dbf00;
+      font-family: "Sen", sans-serif;
+      margin-bottom: 10px;
+    }
+
+    .movie-info p {
+      line-height: 1.5;
+      color: #ccc;
+    }
+
+    .info-row {
+      margin: 10px 0;
+    }
+
+    .trailer iframe {
+      margin-top: 30px;
+      border: none;
+      border-radius: 12px;
+      width: 100%;
+      height: 315px;
+    }
+
+    .action-buttons {
+      margin-top: 25px;
+    }
+
+    .action-buttons a {
+      text-decoration: none;
+      background-color: #4dbf00;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      margin-right: 10px;
+      transition: background 0.3s;
+    }
+
+    .action-buttons a:hover {
+      background-color: #3a9c00;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="navbar-container">
+      <div class="logo-container">
+        <h1 class="logo">CineWave 🎬</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="details-container">
+    <img id="moviePoster" class="poster" src="" alt="Movie Poster" />
+    <div class="movie-info">
+      <h1 id="movieTitle"></h1>
+      <p id="movieSynopsis"></p>
+
+      <div class="info-row"><strong>Duration:</strong> <span id="movieDuration"></span></div>
+      <div class="info-row"><strong>Rating:</strong> <span id="movieRating"></span></div>
+      <div class="info-row"><strong>Actors:</strong> <span id="movieActors"></span></div>
+
+      <div class="action-buttons">
+        <a id="bookButton" href="#">Book Now</a>
+        <a href="index.html">Back Home</a>
+      </div>
+
+      <div class="trailer">
+        <iframe id="movieTrailer" src="" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Movie database (you can extend this list)
+    const movies = {
+      "Her": {
+        poster: "img/1.jpeg",
+        synopsis: "In 2025 Los Angeles, Theodore works for a website as a ghostwriter, composing all kinds of handwritten letters—family, romantic, and so on—for others. He and his wife Catherine have been separated for almost a year, but he can't bring himself to sign the divorce papers. Suffering from persistent depression, he installs a new operating system, OS1, and gives it a female voice.",
+        duration: "2h 6min",
+        rating: "8.0 / 10",
+        actors: "Joaquin Phoenix, Scarlett Johansson, Amy Adams",
+        trailer:  "bande annonce/Her.mp4" 
+        },
+      "Star Wars": {
+        poster: "img/2.jpeg",
+        synopsis: "A year has passed since Kylo Ren killed Snoke, the Supreme Leader, and took his place. Though largely decimated, the Resistance is ready to rise from the ashes. Rey, Poe, Leia, and their allies prepare to resume the fight. But they will have to face an old enemy: Emperor Palpatine.",
+        duration: "2h 22min",
+        rating: "6.4 / 10",
+        actors: "Daisy Ridley, Adam Driver, John Boyega",
+        trailer: "bande annonce/Star_Wars__Galactic_Racer™_-_Official_Reveal_Trailer(360p).mp4"
+      },
+    "Storm": {
+        poster: "img/3.jpg",
+        synopsis: "In 1512, in a world ravaged by the Inquisition, a printer decides to press a forbidden letter that could end the corruption in Antwerp. Unfortunately, discovered, he is arrested and condemned to the stake. His twelve-year-old son, Storm, who manages to escape with the original letter, is declared an outlaw and becomes the target of a relentless manhunt organized by the new Inquisitor. Whom can he trust in a world gripped by religious fanaticism?",
+        duration: "1h 40min",
+        rating: "6.2 / 10",
+        actors: "Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page",
+        trailer: "bande annonce/Into_the_Storm_-_Official_Main_Trailer_[HD](480p).mp4"
+      },
+    "1917": {
+        poster: "img/4.jpg",
+        synopsis: "When World War I hits the world, two British soldiers, Acting Corporal Schofield and Acting Corporal Blake, receive a mission that seems impossible to them: they must cross enemy territory to deliver a message.",
+        duration: "1h 59min",
+        rating: "8.2 / 10",
+        actors: "George MacKay, Richard Madden, Claire Duburq",
+        trailer: "bande annonce/1917.mp4"
+      },
+      "Avengers": {
+        poster: "img/5.jpg",
+        synopsis: "When an unexpected enemy surfaces to threaten global security and balance, Nick Fury, director of the international peacekeeping agency known as S.H.I.E.L.D., must assemble a team to avert an impending global catastrophe.",
+        duration: "2h 23min",
+        rating: "8.0 / 10",
+        actors: "Robert Downey Jr., Chris Evans, Scarlett Johansson",
+        trailer: "bande annonce/AVENGERS__DOOMSDAY (2).mp4"
+      },
+      "Rampage": {
+        poster: "img/6.jpg",
+        synopsis: "Primatologist Davis Okoye shares an unbreakable bond with George, an intelligent silverback gorilla who has been in his care since birth. When a rogue genetic experiment goes wrong, George, a wolf-like reptile, grows to monstrous sizes.",
+        duration: "1h 47min",
+        rating: "6.1 / 10",
+        actors: "Dwayne Johnson, Malin Akerman, Jeffrey Dean Morgan",
+        trailer: "bande annonce/RAMPAGE_-_OFFICIAL_TRAILER_1_[HD](480p).mp4"
+      },
+      "Ender's game": {
+        poster: "img/7.jpg",
+        synopsis: "Since the devastating Colorado beetle attack, which killed millions 50 years ago, humanity has been preparing for another alien invasion by recruiting children who demonstrate the greatest abilities. Andrew Wiggin is one of these children.",
+        duration: "1h 54min",
+        rating: "6.6 / 10",
+        actors: "Asa Butterfield, Harrison Ford, Hailee Steinfeld",
+        trailer: "bande annonce/Ender_s_Game.mp4"
+      },
+      "Troll 2": {
+        poster: "img/8.jpg",
+        synopsis: "When a new troll wreaks havoc across the country, Nora, Andreas and Major Kris embark on their most perilous mission yet.",
+        duration: "1h 45min",
+        rating: "8.0 / 10",
+        actors: "Ine Marie Wilmann, Sara Khorami, Mads Sjogard Pettersen",
+        trailer: "bande annonce/Troll_2___Official_Trailer___Netflix(360p).mp4"
+      },
+      "Kingdom": {
+        poster: "img/9.jpg",
+        synopsis: "A police officer agrees to participate in a dangerous secret mission in the hope of finding his brother who disappeared 18 years earlier and who has since become the leader of a criminal gang.",
+        duration: "2h 40min",
+        rating: "5.5 / 10",
+        actors: "Bhagyashri Borse, Vijay Devarakonda, Satyadev Kancharana",
+        trailer: "bande annonce/Kingdom___Official_Trailer_[HD]___Netflix(480p).mp4"
+      },
+      "Being Eddie": {
+        poster: "img/10.jpg",
+        synopsis: "With his nearly 50-year career, Eddie Murphy has broken down barriers, invented new genres, and inspired several generations of talent.",
+        duration: "2h 23min",
+        rating: "6.9 / 10",
+        actors: "Eddie Murphy, Kevin Hart, Wesley Snipes",
+        trailer: "bande annonce/Being_Eddie.mp4"
+      },
+      "Django": {
+        poster: "img/f-1.jpg",
+        synopsis: "Two years before the Civil War, a former slave named Django teams up with a German bounty hunter who freed him: he agrees to track down wanted criminals with him. In exchange, he will help him find his long-lost wife, and the slave as well.",
+        duration: "2h 23min",
+        rating: "8.0 / 10",
+        actors: "Jamie Foxx, Christoph Waltz, Kerry Washington",
+        trailer: "bande annonce/Django_Unchaine.mp4"
+      },
+      "The sierge at Thorn": {
+        poster: "img/12.jpg",
+        synopsis: "In 2027, with Indonesian society on the brink of collapse, Edwin works at a special school for troubled children. He must fight for survival when the school suddenly transforms into a battleground due to discrimination and racial tensions.",
+        duration: "1h 58min",
+        rating: "6.5 / 10",
+        actors: "Omara N. Esteghlal, Sheila Kusnadi, Morgan Oey",
+        trailer: "bande annonce/The_Siege_At_Thorn_High___Trailer(360p).mp4"
+      },
+      "The rats": {
+        poster: "img/13.jpg",
+        synopsis: "To pull off a risky heist, six slightly offbeat outlaws must face an unprecedented challenge: trusting each other - and relying on a drifting sorcerer.",
+        duration: "2h 23min",
+        rating: "4.8 / 10",
+        actors: "Dolph Lundgren, Freya Allan, Christelle Elwin",
+        trailer: "bande annonce/The_Rats__A_Witcher_Tale___Tamil_Trailer___Now_Streaming____What_s_On_Netflix_Tamil(360p).mp4"
+      },
+      "Merry chritmas mother !": {
+        poster: "img/14.jpg",
+        synopsis: "Claire plans a special Christmas, but is forgotten by her family. When they realize that she's missing, their holiday is at risk until she returns to give them the celebration they deserve.",
+        duration: "1h 48min",
+        rating: "5.3 / 10",
+        actors: "Michelle Pfeiffer, Chloe Grace Moretz, Felicity Jones",
+        trailer: "bande annonce/In_Your_Dreams___.mp4"
+      },
+      "The Dark": {
+        poster: "img/f-2.jpg",
+        synopsis: "A young undead girl haunts the woods where she was murdered years before. The day she discovers an abused boy in the trunk of a car, her decision to spare him will change their lives forever. Both have suffered terrible abuse and find solace in each other's company. Light may finally appear at the end of the tunnel, but bodies may pile up along the way.",
+        duration: "1h 35min",
+        rating: "8.0 / 10",
+        actors: "Nadia Alexander, Toby Nichols, Karl Markovics",
+        trailer: "bande annonce/The_Dark_-_Official_Movie_Trailer__2018_(360p).mp4"
+      },
+      "Jujutsu Kaisen 0": {
+        poster: "img/15.jpg",
+        synopsis: "As a child, Yuta Okkotsu witnessed his friend Rika Orimoto's tragic death in a terrible accident. Since then, Rika has haunted Yuta, who has even wished for his own death after suffering for years under this curse. Then one day, the most powerful exorcist, Satoru Gojo, welcomes him into Tokyo's exorcism academy. Just as Yuta is finally finding new meaning in his life, a threat looms over the world.",
+        duration: "1h 45min",
+        rating: "7.8 / 10",
+        actors: "Kayleigh McKee, Yuichi Nakamura, Takahiro Sakurai",
+        trailer: "bande annonce/JUJUTSU_KAISEN_0_Bande_Annonce_VF__2022_(360p).mp4"
+      },
+      "Suzume": {
+        poster: "img/16.jpg",
+        synopsis: "In a small town in Kyushu, a 17-year-old girl named Suzume meets a man who claims to be traveling in search of a door. Deciding to follow him into the mountains, she discovers a single, dilapidated door amidst the ruins. Suzume turns the handle, and other doors open across Japan, unleashing all the catastrophes they contain. The man is adamant: every open door must be closed. Suzume embarks on a journey to close them all.",
+        duration: "2h 20min",
+        rating: "7.6 / 10",
+        actors: "Hokuto Matsumura, Nanoka Hara, Keisuke Horibe",
+        trailer: "bande annonce/Suzume___TRAILER_VF(360p).mp4"
+      },
+      "Super Mario Bros": {
+        poster: "img/17.jpg",
+        synopsis: "While attempting to repair an underground pipe, Mario and his brother Luigi, both plumbers, find themselves transported to a magical new world through a mysterious conduit. But when the two brothers are separated, Mario embarks on a thrilling adventure to find Luigi. In his quest, he can count on the help of Toad, a resident of the Mushroom Kingdom, and the wise advice on combat techniques from Princess Peach, the determined warrior who rules the Kingdom. This is how Mario manages to muster his own strength to complete his mission.",
+        duration: "1h 32min",
+        rating: "7.0 / 10",
+        actors: "Chris Pratt, Jack Black, Charlie Day",
+        trailer: "bande annonce/The_Super_Mario_Bros._Movie___Official_Trailer(360p).mp4"
+      },
+      "Shrek": {
+        poster: "img/18.jpg",
+        synopsis: "Earth's mightiest heroes must unite to stop Loki’s destructive plans.",
+        duration: "2h 23min",
+        rating: "8.0 / 10",
+        actors: "Robert Downey Jr., Chris Evans, Scarlett Johansson",
+        trailer: "bande annonce/shrek.mp4"
+      },
+      "Stand by me Doraemon": {
+        poster: "img/19.jpg",
+        synopsis: "Once upon a time, in a faraway swamp, there lived an ogre named Shrek whose precious solitude was shattered by an invasion of annoying fairytale characters. They had all been banished from their kingdom by the wicked Lord Farquaad.",
+        duration: "1h 30min",
+        rating: "7.9 / 10",
+        actors: "Mike Myers, Eddie Murphy, Conrad Vernon",
+        trailer: "bande annonce/STAND_BY_ME_DORAEMON_TRAILER___DORAEMON_MOVIES(360p).mp4"
+      },
+      "Bleach": {
+        poster: "img/20.jpg",
+        synopsis: "A Japanese teenager with the power to see ghosts must fight evil spirits and help lost souls find their way to another life.",
+        duration: "1h 48min",
+        rating: "6.3 / 10",
+        actors: "Sota Fukushi, Hana Sugisaki, Ryo Yoshizawa",
+        trailer: "bande annonce/Official_Trailer_#1___BLEACH__Thousand-Year_Blood_War___VIZ(360p).mp4"
+      },
+      "L'imaginaire": {
+        poster: "img/21.jpg",
+        synopsis: "Rudger is a boy no one can see, invented by Amanda to share her incredible imaginary adventures. But when Rudger, suddenly alone, arrives in the City of Imaginary Friends, where they live and find work, he faces a mysterious threat.",
+        duration: "1h 45min",
+        rating: "6.8 / 10",
+        actors: "Riisa Naka, Takayuki, Ikue Otani",
+        trailer: "bande annonce/The_Imaginary___Official_Trailer___Netflix(360p).mp4"
+      },
+      "Fast X": {
+        poster: "img/22.jpg",
+        synopsis: "Over countless missions and against all odds, Dom Toretto and his family have outwitted and surpassed every enemy in their path. Now, they must confront the deadliest adversary they have ever faced. Fueled by vengeance, a terrifying threat emerges from the shadows of the past to shatter Dom's world and destroy everything and everyone he loves.",
+        duration: "2h 21min",
+        rating: "5.7 / 10",
+        actors: "Vin Diesel, Jason Momoa, Alan Ritchson",
+        trailer: "bande annonce/FAST_X.mp4"
+      },
+      "Straw": {
+        poster: "img/23.jpg",
+        synopsis: "A single mother faces a series of unfortunate events that lead her down an unexpected path. Struggling with circumstances beyond her control, she finds herself entangled in a situation she never could have imagined. Fueled by despair, she becomes the focus of suspicion in a world that seems indifferent to her existence.",
+        duration: "1h 48min",
+        rating: "6.5 / 10",
+        actors: "Tayana Taylor, Taraji P. Henson, Sherri Sheperd",
+        trailer: "bande annonce/Tyler_Perry’s_STRAW___Official_Trailer___Netflix(480p).mp4"
+      },
+      "Now you see me": {
+        poster: "img/24.jpg",
+        synopsis: "The Horsemen are back for the most impressive heist ever conceived. Accompanied by a group of young magicians hoping to follow in their footsteps, they will have to push the boundaries of illusion to orchestrate their most spectacular trick: stealing the world's most precious jewel from the hands of a formidable criminal organization.",
+        duration: "1h 53min",
+        rating: "6.2 / 10",
+        actors: "Dave Franco, Isla Fisher, Morgan Freeman",
+        trailer: "bande annonce/Now_You_See_Me_-_Official_Trailer_[HD](480p).mp4"
+      },
+      "Kill Bok-soon": {
+        poster: "img/25.jpg",
+        synopsis: "At work, she's a renowned assassin. At home, she's a single mom to a teenage girl. Killing is easy. It's parenting that's the hard part.",
+        duration: "2h 17min",
+        rating: "6.6 / 10",
+        actors: "Esom, Jeon Do-yeon, Lee Yeon",
+        trailer: "bande annonce/Kill_Boksoon___Final_Trailer___Netflix(480p).mp4"
+      },
+      "Ong Bak 3": {
+        poster: "img/26.jpg",
+        synopsis: "Thailand, 15th century. Left for dead, Tien is resurrected with the help of a woman and the inhabitants of his village. He must regain his strength to avenge his oppressed people and confront the king and his strange soldiers in a final battle.",
+        duration: "1h 39min",
+        rating: "8.0 / 10",
+        actors: "Tony Jaa, Chupong Changprung, Petchtai Wongkamlao",
+        trailer: "bande annonce/Kill_Boksoon___Final_Trailer___Netflix(480p).mp4"
+      },
+      "In your Dreams": {
+        poster: "img/11.jpg",
+        synopsis: "Stevie and her brother Elliot magically travel to the dream world on a mission to find The Sandman, who will grant them their ultimate wish: to save their parents' marriage.",
+        duration: "1h 31min",
+        rating: "6.5 / 10",
+        actors: "Simu Liu, Craig Robinson, Critin Milioti",
+        trailer: "bande annonce/In_Your_Dreams___.mp4"
+      },
+      "Michael": {
+        poster: "img/michael1.jpg",
+        synopsis: "The story of -King of Pop- Michael Jackson. From his childhood of being the star of the Jackson 5, through times of abuse by his father Joe Jackson. To his hit Thriller, and the purchase of Neverland Valley, into his tragic, and unsuspected death on June 25, 2009.",
+        duration: "-h --min",
+        rating: "-- / 10",
+        actors: "Jaafar Jackon, Miles Teller, Kat Graham",
+        trailer:  "bande annonce/Michael___Trailer_Oficial_-_HD(480p).mp4" 
+      }
+    };
+
+    // Get title from URL parameters
+    const params = new URLSearchParams(window.location.search);
+    const title = params.get("title");
+    const movie = movies[title];
+
+    // Populate the page
+    if (movie) {
+      document.getElementById("movieTitle").textContent = title;
+      document.getElementById("moviePoster").src = movie.poster;
+      document.getElementById("movieSynopsis").textContent = movie.synopsis;
+      document.getElementById("movieDuration").textContent = movie.duration;
+      document.getElementById("movieRating").textContent = movie.rating;
+      document.getElementById("movieActors").textContent = movie.actors;
+      document.getElementById("movieTrailer").src = movie.trailer;
+      document.getElementById("bookButton").href = `booking.html?title=${encodeURIComponent(title)}`;
+    } else {
+      document.querySelector(".details-container").innerHTML =
+        "<h2 style='color:white'>Movie not found.</h2>";
+    }
+  </script>
+  <script src="api-helper.js"></script>
+</body>
+</html>

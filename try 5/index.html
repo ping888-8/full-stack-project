@@ -1,0 +1,688 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <title>CineWave</title>
+</head>
+<body>
+    
+    <div class="navbar">
+        <div class="navbar-container">
+            <div class="logo-container">
+                <h1 class="logo">CineWave 🎬</h1>
+            </div>
+            <div class="menu-container">
+                <ul class="menu-list">
+                    <li class="menu-list-item active"><a href="#home"><strong style="color: rgba(255, 0, 0, 0.76);">HOME</strong></a></li>
+                    <li class="menu-list-item"><a href="#now-showing"><strong style="color: rgba(255, 0, 0, 0.76);">NOW SHOWING</strong></a></li>
+                    <li class="menu-list-item"><a href="#popular"><strong style="color: rgba(255, 0, 0, 0.76);">TO BE SHOWN</strong></a></li>
+                    <li class="menu-list-item"><a href="#book-it-now"><strong style="color: rgba(255, 0, 0, 0.76);">TRENDING</strong></a></li>
+                </ul>
+            </div>
+            
+            <div class="profile-container">
+                <img class="profile-picture" src="img/profile.jpg" alt="Profile" />
+                <div class="profile-text-container">
+                    <strong>Profile</strong>
+                </div>
+                <div class="toggle">
+                    <i class="fas fa-moon toggle-icon"></i>
+                    <i class="fas fa-sun toggle-icon"></i>
+                    <div class="toggle-ball"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input
+        type="text"
+        id="searchBar"
+        placeholder="Find and book your favourite movie from our CineWave catalogue...";
+        style="display:none;"
+    />
+    <div class="sidebar">
+        <i class="left-menu-icon fas fa-search" id="searchIcon"></i>
+        <a href="index.html"><i class="left-menu-icon fas fa-home"></i></a>
+        <a href="admin-dashboard.html"><i class="left-menu-icon fas fa-users"></i></a>
+        <i class="left-menu-icon fas fa-bookmark"></i>
+        <i class="left-menu-icon fas fa-tv"></i>
+        <i class="left-menu-icon fas fa-shopping-cart"></i>
+        <a href="about.html"><i class="left-menu-icon fas fa-info-circle"></i></a>
+    </div>
+    <div id="mainContent">
+        <section id="home">
+            <div class="container">
+                <div class="content-container">
+                    <div class="featured-content" data-title="Michael"
+                        style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url('img/michael.jpg');">
+                        <img class="featured-title" src="img/michael2.jpg" alt="">
+                        <p class="featured-desc1">
+                            The story of "King of Pop" Michael Jackson. From his childhood of being the star of the Jackson 5, through times of abuse by his father Joe Jackson. To his hit Thriller, 
+                            and the purchase of Neverland Valley, into his tragic, and unsuspected death on June 25, 2009. 
+                        </p>
+                        <button class="featured-button" onclick="window.location.href='movie-details.html?title=Michael'">DETAILS</button>
+                        <button class="featured-button" onclick="window.location.href='booking.html?title=Michael'">BOOK</button>
+                    </div>
+                    <section id="now-showing"> 
+                        <div class="movie-list-container">
+                            <h1 class="movie-list-title">NOW SHOWING</h1>
+                            <div class="movie-list-wrapper">
+                                <div class="movie-list">
+                                    <div class="movie-list-item" data-title="Her">
+                                        <img class="movie-list-item-img" src="img/1.jpeg" alt="">
+                                        <span class="movie-list-item-title">Her</span>
+                                        <p class="movie-list-item-desc">A lonely writer develops an unlikely relationship with his newly
+                                            purchased operating system that's designed to meet his every need.</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Star Wars">
+                                        <img class="movie-list-item-img" src="img/2.jpeg" alt="">
+                                        <span class="movie-list-item-title">Star Wars</span>
+                                        <p class="movie-list-item-desc">When it's discovered that the evil Emperor Palpatine did not die at the hands of Darth Vader,
+                                            the rebels must race against the clock to find...</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Storm">
+                                        <img class="movie-list-item-img" src="img/3.jpg" alt="">
+                                        <span class="movie-list-item-title">Storm</span>
+                                        <p class="movie-list-item-desc">Storm Voeten, son of printer Klaas Voeten, becomes the target of a hunt by the Inquisition.
+                                            Aided by Marieke, a mysterious girl living in the under... 
+                                        </p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="1917">
+                                        <img class="movie-list-item-img" src="img/4.jpg" alt="">
+                                        <span class="movie-list-item-title">1917</span>
+                                        <p class="movie-list-item-desc">At the height of the First World War, two young British soldiers must
+                                            cross enemy territory and deliver a message that will stop a deadly... </p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Avengers">
+                                        <img class="movie-list-item-img" src="img/5.jpg" alt="">
+                                        <span class="movie-list-item-title">Avengers</span>
+                                        <p class="movie-list-item-desc">Earth's mightiest heroes must come together and learn to fight as a team if they are going to 
+                                            stop the mischievous Loki and his...</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Rampage">
+                                        <img class="movie-list-item-img" src="img/6.jpg" alt="">
+                                        <span class="movie-list-item-title">Rampage</span>
+                                        <p class="movie-list-item-desc">When three different animals become infected with a dangerous
+                                            pathogen, a primatologist and a geneticist team up to...</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Ender's Game">
+                                        <img class="movie-list-item-img" src="img/7.jpg" alt="">
+                                        <span class="movie-list-item-title">Ender's game</span>
+                                        <p class="movie-list-item-desc">Andrew "Ender" Wiggin is sent to an advanced military academy in
+                                            space to prepare for a future alien invasion by a hostile alien race called the Formics. </p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-right arrow"></i>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="popular">
+                        <div class="movie-list-container">
+                            <h1 class="movie-list-title">TO BE SHOWN</h1>
+                            <div class="movie-list-wrapper">
+                                <div class="movie-list">
+                                    <div class="movie-list-item" data-title="Troll 2">
+                                        <img class="movie-list-item-img" src="img/8.jpg" alt="">
+                                        <span class="movie-list-item-title">Troll 2</span>
+                                        <p class="movie-list-item-desc">When a new troll wreaks havoc across the country, Nora, Andreas 
+                                            and Major Kris embark on their most perilous mission yet.</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Kingdom">
+                                        <img class="movie-list-item-img" src="img/9.jpg" alt="">
+                                        <span class="movie-list-item-title">Kingdom</span>
+                                        <p class="movie-list-item-desc">A cop haunted by his brother's disappearance accepts a covert 
+                                            mission to infiltrate a crime syndicate, but discovers its leader...</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Being Eddie">
+                                        <img class="movie-list-item-img" src="img/10.jpg" alt="">
+                                        <span class="movie-list-item-title">Being Eddie</span>
+                                        <p class="movie-list-item-desc">From his early days on stage as a teenager to his triumph in Hollywood, Eddie
+                                            Murphy looks back with sincerity and humor on his...</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Django">
+                                        <img class="movie-list-item-img" src="img/f-t-1.png" alt="">
+                                        <span class="movie-list-item-title">Django</span>
+                                        <p class="movie-list-item-desc">Two years before the Civil War, a former slave named Django teams up with a German bounty hunter who freed him: he agrees to track 
+                                        down wanted criminals wi..</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="The sierge at Thorn">
+                                        <img class="movie-list-item-img" src="img/12.jpg" alt="">
+                                        <span class="movie-list-item-title">The siege at Thorn</span>
+                                        <p class="movie-list-item-desc">Eighteen years after witnessing an assault on his sister during a riot, Edwin is 
+                                            determined to fulfill her dying wish, leading him to...</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="The rats">
+                                        <img class="movie-list-item-img" src="img/13.jpg" alt="">
+                                        <span class="movie-list-item-title">The Rats</span>
+                                        <p class="movie-list-item-desc">To pull off a daring heist, a gang of six misfit outlaws 
+                                            will have to do something they've never done before: trust...</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Oh what fun !">
+                                        <img class="movie-list-item-img" src="img/14.jpg" alt="">
+                                        <span class="movie-list-item-title">Oh what fun !</span>
+                                        <p class="movie-list-item-desc">At Christmas, Claire Clauster is the glue that holds her family together, lovely but a little 
+                                            scatterbrained. But this year, while she has planned...</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-right arrow"></i>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="featured-content" data-title="The Dark" 
+                        style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url('img/f-2.jpg');">
+                        <img class="featured-title" src="img/f-t-2.png" alt="">
+                        <p class="featured-desc">An undead teenage girl befriends a blind boy that she meets in a forest she haunts and hunts 
+                            in. Both have been victims of unimaginable abuse, and each finds solace in the other. There may be a chance of light
+                            at the end of their tunnel, but it will come with a body count.</p>
+                        <button class="featured-button" onclick="window.location.href='movie-details.html?title=The Dark'">DETAILS</button>
+                        <button class="featured-button" onclick="window.location.href='booking.html?title=The Dark'">BOOK</button>       
+                    </div>
+                    <section id="book-it-now">
+                        <div class="movie-list-container">
+                            <h1 class="movie-list-title">TRENDING</h1>
+                            <div class="movie-list-wrapper">
+                                <div class="movie-list">
+                                    <div class="movie-list-item" data-title="Jujutsu Kaisen 0">
+                                        <img class="movie-list-item-img" src="img/15.jpg" alt="">
+                                        <span class="movie-list-item-title">Jujutsu Kaisen 0</span>
+                                        <p class="movie-list-item-desc">Yuuta Okkotsu joins Jujutsu High School and learns to control Rika, a demon who 
+                                            protected him, in order to help people. He is in his...</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Suzume">
+                                        <img class="movie-list-item-img" src="img/16.jpg" alt="">
+                                        <span class="movie-list-item-title">Suzume</span>
+                                        <p class="movie-list-item-desc">In a quiet little town in Kyushu, a 17-year-old girl,
+                                            Suzume, meets a man who says he is traveling in search of a door.</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Super Mario Bros">
+                                        <img class="movie-list-item-img" src="img/17.jpg" alt="">
+                                        <span class="movie-list-item-title">Super Mario Bros</span>
+                                        <p class="movie-list-item-desc">While attempting to repair an underground pipe, Mario and his brother Luigi, both plumbers, 
+                                            find themselves plunged into a new universe...</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Shrek">
+                                        <img class="movie-list-item-img" src="img/18.jpg" alt="">
+                                        <span class="movie-list-item-title">Shrek</span>
+                                        <p class="movie-list-item-desc">This is the story of an ogre named Shrek who longs for a quiet, 
+                                            solitary life in a swamp. But...</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Stand by me Doraemon">
+                                        <img class="movie-list-item-img" src="img/19.jpg" alt="">
+                                        <span class="movie-list-item-title">Stand by me Doraemon</span>
+                                        <p class="movie-list-item-desc">Doraemon, the robot cat from the future, has traveled back in time along with Sewashi,
+                                            Nobita's descendant. They went back to the past...</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Bleach">
+                                        <img class="movie-list-item-img" src="img/20.jpg" alt="">
+                                        <span class="movie-list-item-title">Bleach</span>
+                                        <p class="movie-list-item-desc">A Japanese teenager with the ability to see ghosts gains a soul 
+                                            reaper's powers and begins his duties as a substitute soul reaper.</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="L'imaginaire">
+                                        <img class="movie-list-item-img" src="img/21.jpg" alt="">
+                                        <span class="movie-list-item-title">L'imaginaire</span>
+                                        <p class="movie-list-item-desc">No one can see Rudger, the imaginary friend of 10-year-old Amanda, 
+                                            who has lost a loved one. The two of them experience extraordinary...</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-right arrow"></i>
+                            </div>
+                        </div>
+                        <div class="movie-list-container">
+                            <div class="movie-list-wrapper">
+                                <div class="movie-list">
+                                    <div class="movie-list-item" data-title="L'imaginaire">
+                                        <img class="movie-list-item-img" src="img/21.jpg" alt="">
+                                        <span class="movie-list-item-title">L'imaginaire</span>
+                                        <p class="movie-list-item-desc">No one can see Rudger, the imaginary friend of 10-year-old Amanda, 
+                                            who has lost a loved one. The two of them experience extraordinary...</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Fast X">
+                                        <img class="movie-list-item-img" src="img/22.jpg" alt="">
+                                        <span class="movie-list-item-title">Fast X</span>
+                                        <p class="movie-list-item-desc">Over many missions and against impossible odds, Dom Toretto (Vin Diesel) and his
+                                            family have outsmarted, out-nerved and outdriven every foe in...</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Straw">
+                                        <img class="movie-list-item-img" src="img/23.jpg" alt="">
+                                        <span class="movie-list-item-title">Straw</span>
+                                        <p class="movie-list-item-desc">A single mother navigates a series of unfortunate events, leading her down an 
+                                            unforeseen path where she becomes embroiled in a situation she never... </p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Now you see me">
+                                        <img class="movie-list-item-img" src="img/24.jpg" alt="">
+                                        <span class="movie-list-item-title">Now you see me</span>
+                                        <p class="movie-list-item-desc">Now you don't : A diamond heist reunites the retired illusionist Horsemen
+                                            with newcomers Greenblatt, Smith, and Sessa as they target dangerous crimi...</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Kill Bok-soon">
+                                        <img class="movie-list-item-img" src="img/25.jpg" alt="">
+                                        <span class="movie-list-item-title">Kill Bok-soon</span>
+                                        <p class="movie-list-item-desc">At work, she's a renowned assassin. At home, she's a single mom to a teenage girl. 
+                                            Killing is easy. It's parenting that's the hard part.</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="In your Dreams">
+                                        <img class="movie-list-item-img" src="img/11.jpg" alt="">
+                                        <span class="movie-list-item-title">In your Dreams</span>
+                                        <p class="movie-list-item-desc">Thailand, 15th century. Left for dead, Tien is resurrected with the help of a woman and the
+                                            inhabitants of his village. He must regain his strength...</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                    <div class="movie-list-item" data-title="Ong Bak 3">
+                                        <img class="movie-list-item-img" src="img/26.jpg" alt="">
+                                        <span class="movie-list-item-title">Ong Bak 3</span>
+                                        <p class="movie-list-item-desc">Thailand, 15th century. Left for dead, Tien is resurrected with the help of a woman and the inhabitants 
+                                            of his village. He must regain his strength to...</p>
+                                        <div class="movie-list-item-buttons">
+                                            <button class="movie-list-item-button">DETAILS</button>
+                                            <button class="movie-list-item-button">BOOK</button>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                            <i class="fas fa-chevron-right arrow"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div id="searchResults" style="display:none;"></div>
+    <script src="app.js"></script>
+    <!--
+        const API_URL = 'http://localhost:5000/api';
+        // Fonction pour vérifier le token
+        function getToken() {
+            return localStorage.getItem('cinewaveToken');
+        }
+
+        // Fonction pour vérifier si l'utilisateur est connecté
+        function isLoggedIn() {
+            return !!getToken() && !!localStorage.getItem('cinewaveUser');
+        }
+
+        // ============================================
+        // GESTION DES BOUTONS "BOOK"
+        // ============================================
+
+        // Attacher les événements aux boutons BOOK
+        function attachBookButtonEvents() {
+            // Boutons dans les cartes de films
+            const bookButtons = document.querySelectorAll('.movie-list-item-button:nth-child(2), .featured-button:last-of-type');
+            
+            bookButtons.forEach(button => {
+                button.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Récupérer le titre du film
+                    const movieItem = e.target.closest('.movie-list-item, .featured-content');
+                    const movieTitle = movieItem?.dataset.title;
+                    
+                    if (!movieTitle) {
+                        alert('Error: Movie title not found');
+                        return;
+                    }
+                    
+                    // Vérifier si l'utilisateur est connecté
+                    if (!isLoggedIn()) {
+                        if (confirm('You must be logged in to book a movie. Do you want to log in now?')) {
+                            window.location.href = 'login.html';
+                        }
+                        return;
+                    }
+                    
+                    // Vérifier que le film existe et a des séances
+                    await checkMovieAndRedirect(movieTitle);
+                });
+            });
+        }
+
+        // ============================================
+        // VÉRIFIER LE FILM ET REDIRIGER
+        // ============================================
+
+        async function checkMovieAndRedirect(movieTitle) {
+            try {
+                // Afficher un loader (optionnel)
+                console.log('🔍 Vérification du film:', movieTitle);
+                
+                // 1. Chercher le film dans l'API
+                const movieResponse = await fetch(`${API_URL}/movies/title/${encodeURIComponent(movieTitle)}`);
+                const movieData = await movieResponse.json();
+                
+                if (!movieData.success || movieData.data.length === 0) {
+                    alert(`Désolé, le film "${movieTitle}" n'est pas disponible pour le moment.`);
+                    return;
+                }
+                
+                const movie = movieData.data[0];
+                console.log('✅ Film trouvé:', movie);
+                
+                // 2. Vérifier les séances disponibles
+                const showtimesResponse = await fetch(`${API_URL}/showtimes/movie/${movie.id}`);
+                const showtimesData = await showtimesResponse.json();
+                
+                if (!showtimesData.success || showtimesData.count === 0) {
+                    alert(`Désolé, aucune séance n'est programmée pour "${movieTitle}" actuellement.`);
+                    return;
+                }
+                
+                console.log('✅ Séances disponibles:', showtimesData.count);
+                
+                // 3. Rediriger vers la page de réservation
+                window.location.href = `booking.html?title=${encodeURIComponent(movieTitle)}&movieId=${movie.id}`;
+                
+            }
+            catch (error) {
+                console.error('❌ Erreur lors de la vérification:', error);
+                alert('Erreur de connexion au serveur. Veuillez réessayer.');
+            }
+        }
+
+        // ============================================
+        // GESTION DES BOUTONS "DETAILS"
+        // ============================================
+
+        function attachDetailsButtonEvents() {
+            const detailButtons = document.querySelectorAll('.movie-list-item-button:nth-child(1), .featured-button:first-of-type');
+            detailButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const movieItem = e.target.closest('.movie-list-item, .featured-content');
+                    const movieTitle = movieItem?.dataset.title;
+                    if (movieTitle) {
+                        window.location.href = `movie-details.html?title=${encodeURIComponent(movieTitle)}`;
+                    }
+                });
+            });
+        }
+
+        // ============================================
+        // INITIALISATION AU CHARGEMENT DE LA PAGE
+        // ============================================
+
+        // Attendre que le DOM soit chargé
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                attachBookButtonEvents();
+                attachDetailsButtonEvents();
+            });
+        } else {
+            // DOM déjà chargé
+            attachBookButtonEvents();
+            attachDetailsButtonEvents();
+        }
+
+        // ============================================
+        // GESTION DE LA RECHERCHE (si applicable)
+        // ============================================
+
+        // Si vous avez une barre de recherche, connecter aussi ces résultats
+        const searchResults = document.getElementById('searchResults');
+        if (searchResults) {
+            // Observer les changements dans searchResults pour attacher les événements aux nouveaux boutons
+            const observer = new MutationObserver(() => {
+                attachBookButtonEvents();
+                attachDetailsButtonEvents();
+            });
+            observer.observe(searchResults, { childList: true, subtree: true });
+        }
+    </script>-->
+    <script>
+        // ============================================
+        // INDEX.HTML - SCRIPT DE GESTION DES BOUTONS
+        // À placer APRÈS <script src="app.js">
+        // ============================================
+
+        const API_URL = 'http://localhost:5000/api';
+
+        function getToken() {
+        return localStorage.getItem('cinewaveToken');
+        }
+
+        function isLoggedIn() {
+        return !!getToken() && !!localStorage.getItem('cinewaveUser');
+        }
+
+        // ============================================
+        // VÉRIFIER LE FILM ET REDIRIGER
+        // ============================================
+        async function checkMovieAndRedirect(movieTitle) {
+        try {
+            console.log('🔍 Vérification du film:', movieTitle);
+            
+            const movieResponse = await fetch(`${API_URL}/movies/title/${encodeURIComponent(movieTitle)}`);
+            const movieData = await movieResponse.json();
+            
+            if (!movieData.success || movieData.data.length === 0) {
+            alert(`Désolé, le film "${movieTitle}" n'est pas disponible pour le moment.`);
+            return;
+            }
+            
+            const movie = movieData.data[0];
+            console.log('✅ Film trouvé:', movie);
+            
+            const showtimesResponse = await fetch(`${API_URL}/showtimes/movie/${movie.id}`);
+            const showtimesData = await showtimesResponse.json();
+            
+            if (!showtimesData.success || showtimesData.count === 0) {
+            alert(`Désolé, aucune séance n'est programmée pour "${movieTitle}" actuellement.`);
+            return;
+            }
+            
+            console.log('✅ Séances disponibles:', showtimesData.count);
+            window.location.href = `booking.html?title=${encodeURIComponent(movieTitle)}&movieId=${movie.id}`;
+            
+        } catch (error) {
+            console.error('❌ Erreur:', error);
+            alert('Erreur de connexion au serveur. Veuillez réessayer.');
+        }
+        }
+
+        // ============================================
+        // ATTACHER LES ÉVÉNEMENTS AUX BOUTONS BOOK
+        // ============================================
+        function attachBookButtonEvents() {
+        const bookButtons = document.querySelectorAll('.movie-list-item-button:nth-child(2), .featured-button:last-of-type');
+        
+        bookButtons.forEach(button => {
+            // Créer un nouveau bouton pour éviter les listeners multiples
+            const newButton = button.cloneNode(true);
+            button.parentNode.replaceChild(newButton, button);
+            
+            newButton.addEventListener('click', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const movieItem = e.target.closest('.movie-list-item, .featured-content');
+            const movieTitle = movieItem?.dataset.title;
+            
+            if (!movieTitle) {
+                alert('Erreur : Titre du film non trouvé');
+                return;
+            }
+            
+            if (!isLoggedIn()) {
+                if (confirm('Vous devez être connecté pour réserver. Voulez-vous vous connecter ?')) {
+                window.location.href = 'login.html';
+                }
+                return;
+            }
+            
+            await checkMovieAndRedirect(movieTitle);
+            });
+        });
+        
+        console.log('✅ Boutons BOOK attachés:', bookButtons.length);
+        }
+
+        // ============================================
+        // ATTACHER LES ÉVÉNEMENTS AUX BOUTONS DETAILS
+        // ============================================
+        function attachDetailsButtonEvents() {
+        const detailButtons = document.querySelectorAll('.movie-list-item-button:nth-child(1), .featured-button:first-of-type');
+        
+        detailButtons.forEach(button => {
+            const newButton = button.cloneNode(true);
+            button.parentNode.replaceChild(newButton, button);
+            
+            newButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const movieItem = e.target.closest('.movie-list-item, .featured-content');
+            const movieTitle = movieItem?.dataset.title;
+            
+            if (movieTitle) {
+                window.location.href = `movie-details.html?title=${encodeURIComponent(movieTitle)}`;
+            }
+            });
+        });
+        
+        console.log('✅ Boutons DETAILS attachés:', detailButtons.length);
+        }
+
+        // ============================================
+        // INITIALISATION
+        // ============================================
+        if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            attachBookButtonEvents();
+            attachDetailsButtonEvents();
+        });
+        } else {
+        attachBookButtonEvents();
+        attachDetailsButtonEvents();
+        }
+
+        // Observer pour les résultats de recherche
+        const searchResults = document.getElementById('searchResults');
+        if (searchResults) {
+        const observer = new MutationObserver(() => {
+            attachBookButtonEvents();
+            attachDetailsButtonEvents();
+        });
+        observer.observe(searchResults, { childList: true, subtree: true });
+        }
+
+        // Rendre les fonctions globales pour app.js
+        window.attachBookButtonEvents = attachBookButtonEvents;
+        window.attachDetailsButtonEvents = attachDetailsButtonEvents;
+    </script>
+    <script src="api-helper.js"></script>
+    <!-- <script src="admin-dashboard.js"></script> -->
+</body>
+</html>

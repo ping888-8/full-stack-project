@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking | CineWave</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://kit.fontawesome.com/a2e0e6adf4.js" crossorigin="anonymous"></script>
+
+  <style>
+    body {
+      background-color: #151515;
+      color: white;
+      font-family: "Roboto", sans-serif;
+    }
+
+    .container{
+      background-image: url("img/combo.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .booking-container {
+      margin-left: 50px;
+      padding: 1px 50px;
+      min-height: 100vh;
+      
+    }
+
+    .booking-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .booking-header h1 {
+      color: #4dbf00;
+      font-family: "Sen", sans-serif;
+    }
+
+    .booking-info {
+      text-align: center;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    .selectors {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    select {
+      padding: 10px 20px;
+      background-color: #1e1e1e;
+      color: white;
+      border: 1px solid #4dbf00;
+      border-radius: 8px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .screen {
+      background: linear-gradient(to bottom, #4dbf00, #3a9c00);
+      width: 80%;
+      height: 25px;
+      margin: 20px auto;
+      border-radius: 6px;
+      box-shadow: 0 0 15px rgba(77,191,0,0.5);
+      text-align: center;
+      line-height: 25px;
+      color: black;
+      font-weight: bold;
+    }
+
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      color: #ccc;
+      margin-bottom: 40px;
+      font-size: 15px;
+    }
+
+    .legend div {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .legend .box {
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+    }
+
+    .box.available { background-color: #1e1e1e; }
+    .box.selected { background-color: #4dbf00; }
+    .box.occupied { background-color: #555; }
+
+    .seats-container {
+      display: grid;
+      grid-template-columns: repeat(10, 40px);
+      gap: 10px;
+      justify-content: left;
+      margin-top: 30px;
+      margin-bottom: 40px;
+    }
+
+    .seat {
+      width: 40px;
+      height: 40px;
+      background-color: #1e1e1e;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .seat:hover {
+      background-color: #4dbf00;
+    }
+
+    .seat.selected {
+      background-color: #4dbf00;
+    }
+
+    .seat.occupied {
+      background-color: #555;
+      cursor: not-allowed;
+    }
+
+    .summary {
+      text-align: center;
+      position: bottom;
+      font-size: 18px;
+      color: #ccc;
+    }
+
+    .summary span {
+      color: #4dbf00;
+      font-weight: bold;
+    }
+
+    .confirm-button {
+      
+      margin: 30px auto;
+      background-color: #4dbf00;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 6px 15px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.3s;
+      position: bottom;
+    }
+
+    .confirm-button:hover {
+      background-color: #3a9c00;
+    }
+
+    /* Seat type modal */
+    .seat-type-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .seat-type-content {
+      background-color: #1e1e1e;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(77,191,0,0.4);
+    }
+
+    .seat-type-content h3 {
+      margin-bottom: 20px;
+    }
+
+    .seat-type-content button {
+      background-color: #4dbf00;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .seat-type-content button:hover {
+      background-color: #3a9c00;
+    }
+
+    .menu-list{
+      font-family: "Roboto", sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-container">
+      <div class="logo-container">
+        <h1 class="logo">CineWave 🎬</h1>
+      </div>
+      <div class="menu-container">
+        <ul class="menu-list">
+          <li class="menu-list-item"><a href="index.html"><strong>Home</strong></a></li>
+          <li class="menu-list-item"><a href="about.html"><strong>About Us</strong></a></li>
+        </ul>
+      </div>
+      <div class="profile-container">
+        <img class="profile-picture" src="img/profile.jpg" alt="Profile" />
+        <div class="profile-text-container">
+          <strong>Profile</strong>
+        </div>
+        <div class="toggle">
+          <i class="fas fa-moon toggle-icon"></i>
+          <i class="fas fa-sun toggle-icon"></i>
+          <div class="toggle-ball"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Section -->
+  <div class="container">
+    <div class="booking-container">
+      <div class="booking-header">
+        <h1 id="movieTitle">Movie Title - Hall</h1>
+      </div>
+
+      <div class="booking-info">
+        <p>Select your date, time and seat type below.</p>
+      </div>
+
+      <div class="selectors">
+        <select id="dateSelect">
+          <option value="">Select Date</option>
+          <!-- Les dates seront générées par JavaScript -->
+        </select>
+        <select id="timeSelect">
+          <option value="">Select Time</option>
+          <!-- Les horaires seront chargés dynamiquement depuis l'API -->
+        </select>
+      </div>
+      
+      <div class="screen">SCREEN</div>
+
+      <div class="legend">
+        <div><div class="box available"></div>Available</div>
+        <div><div class="box selected"></div>Selected</div>
+        <div><div class="box occupied"></div>Occupied</div>
+      </div>
+
+      <div class="seats-container" id="seatsContainer"></div>
+
+      <div class="summary">
+        <strong>You have selected <span id="count">0</span> seat(s) for a total of <span id="total">0 FCFA</span></strong>
+        <button class="confirm-button" id="confirmBtn">CONFIRM BOOKING</button>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal pour le choix du type de siège -->
+  <div class="seat-type-modal" id="seatTypeModal">
+    <div class="seat-type-content">
+      <h3>Choose your seat type</h3>
+      <button id="normalSeat">Normal Seat (2000 FCFA)</button>
+      <button id="comboSeat">Combo Seat (3500 FCFA)</button>
+    </div>
+  </div>
+
+  <script>
+
+    // Remplacer CETTE section dans booking.html
+    const user = JSON.parse(localStorage.getItem("cinewaveUser"));
+
+    if (!user) {
+      window.location.href = "login.html";
+    } else {
+      const profileText = document.querySelector(".profile-text-container");
+      if (profileText) {
+        profileText.innerHTML = `
+          <strong>${user.name.split(" ")[0]} 🎬</strong>
+          <button id="logoutBtn" style="
+            margin-left:10px;
+            background:#4dbf00;
+            border:none;
+            color:white;
+            padding:5px 10px;
+            border-radius:6px;
+            cursor:pointer;
+            font-size:14px;
+          ">Logout</button>
+        `;
+      }
+    }
+    // ============================================
+    // 1. CONFIGURATION API
+    // ============================================
+    //const API_URL = 'http://localhost:5000/api'; 
+    
+    function getToken() {
+      return localStorage.getItem('cinewaveToken');
+    }
+
+    // ============================================
+    // 2. RÉCUPÉRATION DU TITRE DU FILM
+    // ============================================
+    const urlParams = new URLSearchParams(window.location.search);
+    const movieTitle = urlParams.get("title");
+    const movieId = urlParams.get("movieId"); // Optionnel si passé depuis index.html
+    
+    if (movieTitle) {
+      document.getElementById("movieTitle").textContent = `${movieTitle} - Hall`;
+    } else {
+      alert("No movie selected!");
+      window.location.href = "index.html";
+    }
+
+    /*// ============================================
+    // 3. GÉNÉRATION DES SIÈGES
+    // ============================================
+    const SEAT_PRICES = {
+      normal: 2000,
+      combo: 3500
+    };
+
+    const seatContainer = document.getElementById("seatsContainer");
+    const NUM_SEATS = 80; // 
+
+    for (let i = 1; i <= NUM_SEATS; i++) {
+      const seat = document.createElement("div");
+      seat.classList.add("seat");
+      seat.dataset.seatId = i;
+      seatContainer.appendChild(seat);
+    }
+
+    let selectedSeats = [];
+    let currentSeat = null;
+    let currentShowtimeId = null;*/
+
+    // REMPLACER LA SECTION 3 DE BOOKING.HTML PAR CE CODE
+
+    // 3. GÉNÉRATION DES SIÈGES AVEC NUMÉROTATION A1-H10
+    // ============================================
+    const SEAT_PRICES = {
+      normal: 2000,
+      combo: 3500
+    };
+
+    const seatContainer = document.getElementById("seatsContainer");
+
+    // Générer une grille 8×10 (A-H, 1-10) = 80 sièges
+    const ROWS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];  // 8 rangées
+    const COLS = 10;  // 10 colonnes
+    const TOTAL_SEATS = 80;
+
+    // Modifier le style du conteneur pour une vraie grille
+    seatContainer.style.cssText = `
+      display: grid;
+      grid-template-columns: 30px repeat(${COLS}, 40px);
+      gap: 10px;
+      justify-content: left;
+      margin-top: 30px;
+      margin-bottom: 90px;
+    `;
+
+    /*// Ajouter les numéros de colonnes en haut
+    const headerRow = document.createElement('div');
+    headerRow.style.cssText = 'display: contents;';
+    headerRow.innerHTML = '<div></div>' + // Coin vide
+      Array.from({length: COLS}, (_, i) => 
+        `<div style="text-align: center; color: #888; font-size: 14px; font-weight: bold;">${i + 1}</div>`
+      ).join('');
+    seatContainer.appendChild(headerRow);*/
+
+    let seatIdCounter = 1;
+    const seatMapping = {}; // Pour mapper seat_id -> seat_number
+
+    ROWS.forEach((row, rowIndex) => {
+      // Label de la rangée
+      const rowLabel = document.createElement('div');
+      rowLabel.textContent = row;
+      rowLabel.style.cssText = `
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        color: #4dbf00; 
+        font-weight: bold; 
+        font-size: 18px;
+      `;
+      seatContainer.appendChild(rowLabel);
+
+      // Sièges de la rangée
+      for (let col = 1; col <= COLS; col++) {
+        const seat = document.createElement('div');
+        const seatNumber = `${row}${col}`;
+        const seatId = seatIdCounter;
+        
+        seat.classList.add('seat');
+        seat.dataset.seatId = seatId;
+        seat.dataset.seatNumber = seatNumber;
+        seat.title = seatNumber; // Tooltip
+        
+        // Afficher le numéro sur le siège
+        seat.textContent = col;
+        seat.style.cssText = `
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 12px;
+          font-weight: bold;
+          width: 40px;
+          height: 40px;
+          background-color: #1e1e1e;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: 0.3s;
+          border: 2px solid #333;
+        `;
+        
+        seatMapping[seatId] = seatNumber;
+        seatContainer.appendChild(seat);
+        seatIdCounter++;
+      }
+    });
+
+    console.log(`✅ ${TOTAL_SEATS} sièges créés (${ROWS.length} rangées × ${COLS} colonnes)`);
+
+    let selectedSeats = [];
+    let currentSeat = null;
+    let currentShowtimeId = null;
+
+
+    // ============================================
+    // 4. GÉNÉRATION DES DATES (7 prochains jours)
+    // ============================================
+    const dateSelect = document.getElementById("dateSelect");
+    const today = new Date();
+    
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+      const dateStr = date.toISOString().split('T')[0];
+      const opt = document.createElement("option");
+      opt.value = dateStr;
+      opt.textContent = date.toLocaleDateString('en-EN', { 
+        weekday: 'long', 
+        day: 'numeric', 
+        month: 'long' 
+      });
+      dateSelect.appendChild(opt);
+    }
+
+    /*// ============================================
+    // 5. MODAL POUR LE CHOIX DU TYPE DE SIÈGE
+    // ============================================
+    const modal = document.getElementById("seatTypeModal");
+    const normalBtn = document.getElementById("normalSeat");
+    const comboBtn = document.getElementById("comboSeat");
+
+    // Gestion du clic sur un siège
+    seatContainer.addEventListener("click", (e) => {
+      if (e.target.classList.contains("seat") && !e.target.classList.contains("occupied")) {
+        currentSeat = e.target;
+        const seatId = parseInt(currentSeat.dataset.seatId);
+        
+        // Vérifier si le siège est déjà sélectionné
+        const existingIndex = selectedSeats.findIndex(s => s.seat_id === seatId);
+        
+        if (existingIndex > -1) {
+          // Désélectionner
+          currentSeat.classList.remove("selected");
+          selectedSeats.splice(existingIndex, 1);
+          updateSummary();
+        } else {
+          // Afficher le modal pour choisir le type
+          modal.style.display = "flex";
+        }
+      }
+    });
+
+    // Choix du type de siège
+    function chooseSeat(type) {
+      const seatId = parseInt(currentSeat.dataset.seatId);
+      const price = SEAT_PRICES[type];
+      
+      currentSeat.classList.add("selected");
+      selectedSeats.push({
+        seat_id: seatId,
+        seat_type: type,
+        price: price,
+        element: currentSeat
+      });
+      
+      updateSummary();
+      modal.style.display = "none";
+    }
+
+    normalBtn.onclick = () => chooseSeat("normal");
+    comboBtn.onclick = () => chooseSeat("combo");
+    modal.onclick = (e) => { 
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    };*/
+
+    // ============================================
+    // MODAL DE SÉLECTION DU TYPE DE SIÈGE
+    // ============================================
+    const modal = document.getElementById("seatTypeModal");
+    const normalBtn = document.getElementById("normalSeat");
+    const comboBtn = document.getElementById("comboSeat");
+
+    seatContainer.addEventListener("click", (e) => {
+      if (e.target.classList.contains("seat") && !e.target.classList.contains("occupied")) {
+        currentSeat = e.target;
+        const seatId = parseInt(currentSeat.dataset.seatId);
+        const seatNumber = currentSeat.dataset.seatNumber;
+        
+        const existingIndex = selectedSeats.findIndex(s => s.seat_id === seatId);
+        
+        if (existingIndex > -1) {
+          // Désélectionner
+          currentSeat.classList.remove("selected");
+          currentSeat.style.backgroundColor = "#1e1e1e";
+          currentSeat.style.borderColor = "#333";
+          selectedSeats.splice(existingIndex, 1);
+          updateSummary();
+        } else {
+          // Afficher le modal pour choisir le type
+          modal.style.display = "flex";
+        }
+      }
+    });
+
+    function chooseSeat(type) {
+      const seatId = parseInt(currentSeat.dataset.seatId);
+      const seatNumber = currentSeat.dataset.seatNumber;
+      const price = SEAT_PRICES[type];
+      
+      currentSeat.classList.add("selected");
+      currentSeat.style.backgroundColor = "#4dbf00";
+      currentSeat.style.borderColor = "#4dbf00";
+      
+      selectedSeats.push({
+        seat_id: seatId,
+        seat_number: seatNumber,
+        seat_type: type,
+        price: price,
+        element: currentSeat
+      });
+      
+      updateSummary();
+      modal.style.display = "none";
+    }
+
+    normalBtn.onclick = () => chooseSeat("normal");
+    comboBtn.onclick = () => chooseSeat("combo");
+    modal.onclick = (e) => { 
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    };
+
+    /*// ============================================
+    // 6. MISE À JOUR DU RÉSUMÉ
+    // ============================================
+    const count = document.getElementById("count");
+    const total = document.getElementById("total");
+
+    function updateSummary() {
+      const totalPrice = selectedSeats.reduce((sum, seat) => sum + seat.price, 0);
+      count.textContent = selectedSeats.length;
+      total.textContent = totalPrice + " FCFA";
+    }*/
+
+    // ============================================
+    // MISE À JOUR DU RÉSUMÉ AVEC NUMÉROS DE SIÈGES
+    // ============================================
+    const count = document.getElementById("count");
+    const total = document.getElementById("total");
+
+    function updateSummary() {
+      const totalPrice = selectedSeats.reduce((sum, seat) => sum + seat.price, 0);
+      const seatNumbers = selectedSeats
+        .map(s => s.seat_number)
+        .sort((a, b) => {
+          // Tri par rangée puis par numéro
+          const rowA = a.charAt(0);
+          const rowB = b.charAt(0);
+          if (rowA !== rowB) return rowA.localeCompare(rowB);
+          return parseInt(a.substring(1)) - parseInt(b.substring(1));
+        })
+        .join(', ');
+      
+      count.textContent = selectedSeats.length;
+      total.textContent = totalPrice.toLocaleString() + " FCFA";
+      
+      // Afficher les numéros de sièges (si vous avez un élément pour ça)
+      const seatsDisplay = document.getElementById('seatsDisplay');
+      if (seatsDisplay) {
+        seatsDisplay.textContent = seatNumbers || 'Aucun siège sélectionné';
+      }
+      
+      console.log('Seats Selected:', seatNumbers);
+    }
+
+    // ============================================
+    // 7. RÉCUPÉRATION DES SÉANCES DISPONIBLES
+    // ============================================
+    async function loadAvailableTimes() {
+      const selectedDate = dateSelect.value;
+      const timeSelect = document.getElementById("timeSelect");
+      
+      console.log('loadAvailableTimes appelée avec date:', selectedDate);
+      
+      if (!selectedDate) {
+        console.warn(' Aucune date sélectionnée');
+        return;
+      }
+      
+      try {
+        // D'abord, trouver le film par titre
+        console.log('🔍 Recherche du film:', movieTitle);
+        const movieResponse = await fetch(`${API_URL}/movies/title/${encodeURIComponent(movieTitle)}`);
+        const movieData = await movieResponse.json();
+        
+        console.log('📥 Réponse API film:', movieData);
+        
+        if (!movieData.success || !movieData.data || movieData.data.length === 0) {
+          console.error('❌ Film non trouvé:', movieTitle);
+          timeSelect.innerHTML = '<option value="">Movie not programmed this week</option>';
+          return;
+        }
+        
+        const movieId = movieData.data[0].id;
+        console.log('✅ Film trouvé:', movieTitle, '(ID:', movieId + ')');
+        
+        // Récupérer les séances pour ce film
+        console.log('🔍 Recherche des séances pour movie_id:', movieId);
+        const showtimeResponse = await fetch(`${API_URL}/showtimes/movie/${movieId}`);
+        const showtimeData = await showtimeResponse.json();
+        
+        console.log('📥 Réponse API séances:', showtimeData);
+        
+        if (!showtimeData.success || !showtimeData.data) {
+          console.error('❌ Aucune séance trouvée pour le film', movieId);
+          timeSelect.innerHTML = '<option value="">No showtimes available</option>';
+          return;
+        }
+        
+        console.log('✅ Séances trouvées:', showtimeData.count || showtimeData.data.length);
+        
+        // Filtrer les séances par date sélectionnée
+        const showtimesForDate = showtimeData.data.filter(s => {
+          const showtimeDate = new Date(s.show_date).toISOString().split('T')[0];
+          console.log('  Comparaison:', showtimeDate, '===', selectedDate, '?', showtimeDate === selectedDate);
+          return showtimeDate === selectedDate;
+        });
+        
+        console.log('✅ Séances pour le', selectedDate + ':', showtimesForDate.length);
+        
+        // Vider le select et ajouter les horaires disponibles
+        timeSelect.innerHTML = '<option value="">Select Time</option>';
+        
+        if (showtimesForDate.length === 0) {
+          timeSelect.innerHTML = '<option value="">No showtimes available for this date</option>';
+          console.warn('⚠️ No showtimes found for this date');
+          return;
+        }
+        
+        showtimesForDate.forEach(showtime => {
+          const opt = document.createElement("option");
+          const time = showtime.start_time.substring(0, 5); // "13:00:00" -> "13:00"
+          opt.value = time;
+          opt.textContent = time;
+          opt.dataset.showtimeId = showtime.id; // Stocker l'ID
+          timeSelect.appendChild(opt);
+          console.log('  ✅ Ajouté:', time, '(showtime_id:', showtime.id + ')');
+        });
+        
+        console.log('✅ Horaires chargés:', showtimesForDate.map(s => s.start_time.substring(0, 5)).join(', '));
+        
+      } 
+      catch (error) {
+        console.error('❌ Error when charging showtime: ', error);
+        timeSelect.innerHTML = '<option value="">Error charging</option>';
+      }
+    }
+
+    /*// ============================================
+    // 8. CHARGEMENT DES SIÈGES OCCUPÉS
+    // ============================================
+    async function loadOccupiedSeats() {
+      const timeSelect = document.getElementById("timeSelect");
+      const selectedOption = timeSelect.options[timeSelect.selectedIndex];
+      
+      if (!selectedOption || !selectedOption.dataset.showtimeId) {
+        return;
+      }
+      
+      const showtimeId = selectedOption.dataset.showtimeId;
+      currentShowtimeId = showtimeId;
+      
+      try {
+        const response = await fetch(`${API_URL}/showtimes/${showtimeId}/seats`);
+        const data = await response.json();
+        
+        if (data.success) {
+          // Réinitialiser tous les sièges
+          document.querySelectorAll('.seat').forEach(seat => {
+            seat.classList.remove('occupied', 'selected');
+          });
+          
+          // Marquer les sièges occupés
+          data.data.forEach(seatInfo => {
+            if (seatInfo.is_occupied) {
+              const seatElement = document.querySelector(`[data-seat-id="${seatInfo.id}"]`);
+              if (seatElement) {
+                seatElement.classList.add('occupied');
+              }
+            }
+          });
+          
+          // Réinitialiser la sélection
+          selectedSeats = [];
+          updateSummary();
+        }
+      } catch (error) {
+        console.error('Error charging seats:', error);
+      }
+    }
+
+
+
+    // ============================================
+    // 9. ÉVÉNEMENTS SUR DATE/HEURE
+    // ============================================
+    dateSelect.addEventListener('change', () => {
+      console.log('📅 Date changée:', dateSelect.value);
+      loadAvailableTimes();
+      // Réinitialiser la sélection de sièges
+      document.querySelectorAll('.seat').forEach(seat => {
+        seat.classList.remove('occupied', 'selected');
+      });
+      selectedSeats = [];
+      updateSummary();
+    });
+
+    document.getElementById("timeSelect").addEventListener('change', () => {
+      console.log('🕐 Heure changée:', document.getElementById("timeSelect").value);
+      loadOccupiedSeats();
+    });
+
+    // ============================================
+    // 10. CONFIRMATION DE LA RÉSERVATION
+    // ============================================
+    const confirmBtn = document.getElementById("confirmBtn");
+
+    confirmBtn.onclick = async () => {
+      const date = dateSelect.value;
+      const timeSelect = document.getElementById("timeSelect");
+      const time = timeSelect.value;
+      
+      if (!date || !time || selectedSeats.length === 0) {
+        alert("Please select a date, an hour and at leat a seat !");
+        return;
+      }
+      
+      if (!currentShowtimeId) {
+        alert("Error : Showtime not found. Please refresh page.");
+        return;
+      }
+      
+      try {
+        const token = getToken();
+        if (!token) {
+          alert("Please log in to confirm your booking.");
+          window.location.href = "login.html";
+          return;
+        }
+        
+        // Préparer les données de réservation
+        const bookingData = {
+          showtime_id: parseInt(currentShowtimeId),
+          seats: selectedSeats.map(s => ({
+            seat_id: s.seat_id,
+            seat_type: s.seat_type,
+            price: s.price
+          }))
+        };
+        
+        console.log('Sending the booking: ', bookingData);
+        
+        // Envoyer la réservation
+        const response = await fetch(`${API_URL}/bookings`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(bookingData)
+        });
+        
+        const result = await response.json();
+        
+        if (!result.success) {
+          throw new Error(result.message || 'Error during booking');
+        }
+
+        console.log('Booking successful:', result);
+
+        // Rediriger vers la page de confirmation
+        const totalPrice = selectedSeats.reduce((sum, s) => sum + s.price, 0);
+        window.location.href = `confirmation.html?bookingId=${result.data.booking_id}&title=${encodeURIComponent(movieTitle)}&seats=${selectedSeats.length}&total=${totalPrice}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
+        
+      } catch (error) {
+        console.error('Error:', error);
+        alert(error.message || "Error during booking. PLease retry !");
+      }
+    };
+
+    // ============================================
+    // 11. INITIALISATION AU CHARGEMENT
+    // ============================================
+    // Charger les séances pour la première date si elle existe
+    window.addEventListener('load', () => {
+      console.log('🚀 Page loaded');
+      // Si une date est déjà sélectionnée par défaut, charger ses séances
+      if (dateSelect.value) {
+        console.log('📅 Default date detected', dateSelect.value);
+        loadAvailableTimes();
+      }
+    });*/
+
+    // ============================================
+    // CHARGEMENT DES SIÈGES OCCUPÉS
+    // ============================================
+    async function loadOccupiedSeats() {
+      const timeSelect = document.getElementById("timeSelect");
+      const selectedOption = timeSelect.options[timeSelect.selectedIndex];
+      
+      if (!selectedOption || !selectedOption.dataset.showtimeId) {
+        return;
+      }
+      
+      const showtimeId = selectedOption.dataset.showtimeId;
+      currentShowtimeId = showtimeId;
+      
+      try {
+        const response = await fetch(`${API_URL}/showtimes/${showtimeId}/seats`);
+        const data = await response.json();
+        
+        console.log('📥 Sièges reçus de l\'API:', data);
+        
+        if (data.success) {
+          // Réinitialiser tous les sièges
+          document.querySelectorAll('.seat').forEach(seat => {
+            seat.classList.remove('occupied', 'selected');
+            seat.style.backgroundColor = "#1e1e1e";
+            seat.style.borderColor = "#333";
+          });
+          
+          // Marquer les sièges occupés PAR NUMÉRO DE SIÈGE
+          let occupiedCount = 0;
+          data.data.forEach(seatInfo => {
+            if (seatInfo.is_occupied) {
+              // Chercher le siège par son numéro (ex: "A5")
+              const seatElement = document.querySelector(`[data-seat-number="${seatInfo.seat_number}"]`);
+              if (seatElement) {
+                seatElement.classList.add('occupied');
+                seatElement.style.backgroundColor = "#555";
+                seatElement.style.borderColor = "#555";
+                seatElement.style.cursor = "not-allowed";
+                occupiedCount++;
+              }
+            }
+          });
+          
+          console.log(`🔒 ${occupiedCount} sièges occupés sur ${TOTAL_SEATS}`);
+          
+          // Réinitialiser la sélection
+          selectedSeats = [];
+          updateSummary();
+        }
+      } catch (error) {
+        console.error('❌ Erreur chargement sièges:', error);
+      }
+    }
+
+    // ============================================
+    // ÉVÉNEMENTS SUR DATE/HEURE
+    // ============================================
+    
+    dateSelect.addEventListener('change', () => {
+      console.log('📅 Date changée:', dateSelect.value);
+      loadAvailableTimes();
+      
+      // Réinitialiser tous les sièges
+      document.querySelectorAll('.seat').forEach(seat => {
+        seat.classList.remove('occupied', 'selected');
+        seat.style.backgroundColor = "#1e1e1e";
+        seat.style.borderColor = "#333";
+      });
+      selectedSeats = [];
+      updateSummary();
+    });
+
+    document.getElementById("timeSelect").addEventListener('change', () => {
+      console.log('🕐 Heure changée:', document.getElementById("timeSelect").value);
+      loadOccupiedSeats();
+    });
+
+    // ============================================
+    // CONFIRMATION DE LA RÉSERVATION
+    // ============================================
+    const confirmBtn = document.getElementById("confirmBtn");
+
+    confirmBtn.onclick = async () => {
+      const date = dateSelect.value;
+      const timeSelect = document.getElementById("timeSelect");
+      const time = timeSelect.value;
+      
+      if (!date || !time || selectedSeats.length === 0) {
+        alert("Please select at least a date, showtime and a seat!");
+        return;
+      }
+      
+      if (!currentShowtimeId) {
+        alert("Error : showtime not found. Please refresh the page.");
+        return;
+      }
+      
+      try {
+        const token = getToken();
+        if (!token) {
+          alert("Please you must login to carry out this action");
+          window.location.href = "login.html";
+          return;
+        }
+        
+        // Préparer les données avec les numéros de sièges
+        const bookingData = {
+          showtime_id: parseInt(currentShowtimeId),
+          seats: selectedSeats.map(s => ({
+            seat_id: s.seat_id,
+            seat_number: s.seat_number,
+            seat_type: s.seat_type,
+            price: s.price
+          }))
+        };
+        
+        console.log('📤 Envoi de la réservation:', bookingData);
+        
+        const response = await fetch(`${API_URL}/bookings`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(bookingData)
+        });
+        
+        const result = await response.json();
+        
+        if (!result.success) {
+          throw new Error(result.message || 'Erreur lors de la réservation');
+        }
+        
+        console.log('✅ Réservation réussie:', result);
+        
+        // Rediriger avec toutes les informations
+        const totalPrice = selectedSeats.reduce((sum, s) => sum + s.price, 0);
+        const seatNumbers = selectedSeats
+          .map(s => s.seat_number)
+          .sort((a, b) => {
+            const rowA = a.charAt(0);
+            const rowB = b.charAt(0);
+            if (rowA !== rowB) return rowA.localeCompare(rowB);
+            return parseInt(a.substring(1)) - parseInt(b.substring(1));
+          })
+          .join(',');
+        
+        const params = new URLSearchParams({
+          bookingId: result.data.booking_id,
+          ticketId: result.data.ticket_id,
+          title: movieTitle,
+          seats: selectedSeats.length,
+          seatNumbers: seatNumbers,
+          total: totalPrice,
+          date: date,
+          time: time
+        });
+        
+        window.location.href = `confirmation.html?${params.toString()}`;
+        
+      } catch (error) {
+        console.error('❌ Erreur:', error);
+        alert(error.message || "Error during booking. Please retry.");
+      }
+    };
+
+    // ============================================
+    // INITIALISATION
+    // ============================================
+    console.log(`
+    ╔══════════════════════════════════════════════════════════╗
+    ║CINEWAVE BOOKING SYSTEM                                   ║
+    ║${TOTAL_SEATS} Seats (${ROWS.length} rows × ${COLS} cols) ║
+    ║Normal: ${SEAT_PRICES.normal} FCFA                        ║
+    ║Combo: ${SEAT_PRICES.combo} FCFA                          ║
+    ╚══════════════════════════════════════════════════════════╝
+    `);
+
+  </script>
+
+  <script src="app.js"></script>
+  <script src="api-helper.js"></script>
+</body>
+</html>

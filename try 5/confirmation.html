@@ -1,0 +1,599 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confirmation | CineWave</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- FontAwesome -->
+  <!-- <script src="https://kit.fontawesome.com/a2e0e6adf4.js" crossorigin="anonymous"></script>
+  <!-- jsPDF Library -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- <style>
+    body {
+      background-color: #151515;
+      color: white;
+      font-family: "Roboto", sans-serif;
+    }
+    .confirmation-container {
+      margin-left: 50px;
+      padding: 80px 50px;
+      text-align: center;
+      min-height: 100vh;
+      background-image: url("img/cinema2.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .confirmation-card {
+      background-color: #1e1e1e;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 0 15px rgba(77, 191, 0, 0.3);
+    }
+    .success-icon {
+      font-size: 60px;
+      color: #4dbf00;
+      margin-bottom: 15px;
+    }
+    .confirmation-title {
+      font-family: "Sen", sans-serif;
+      font-size: 30px;
+      color: #4dbf00;
+      margin-bottom: 15px;
+    }
+    .detail {
+      font-size: 18px;
+      margin: 8px 0;
+      color: #ccc;
+    }
+    .detail span {
+      color: #4dbf00;
+      font-weight: bold;
+    }
+    .btn-download {
+      background-color: #4dbf00;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 30px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 25px;
+      transition: 0.3s;
+    }
+    .btn-download:hover {
+      background-color: #3a9c00;
+    }
+  </style>
+</head>-->
+
+<!-- <body>
+  <div class="navbar">
+    <div class="navbar-container">
+      <div class="logo-container">
+        <h1 class="logo">CineWave 🎬</h1>
+      </div>
+      <div class="menu-container">
+        <ul class="menu-list">
+          <li class="menu-list-item"><a href="index.html">Home</a></li>
+        </ul>
+      </div>
+      <div class="profile-container">
+        <img class="profile-picture" src="img/profile.jpg" alt="Profile" />
+        <div class="profile-text-container">
+          <strong>Profile</strong>
+        </div>
+        <div class="toggle">
+          <i class="fas fa-moon toggle-icon"></i>
+          <i class="fas fa-sun toggle-icon"></i>
+          <div class="toggle-ball"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <!-- <div class="sidebar">
+    <a href="index.html"><i class="left-menu-icon fas fa-home"></i></a>
+    <a href="about.html"><i class="left-menu-icon fas fa-users"></i></a>
+    <i class="left-menu-icon fas fa-search"></i>
+    <i class="left-menu-icon fas fa-info-circle"></i>
+  </div>
+
+  <!-- Confirmation Content -->
+  <!-- <div class="confirmation-container">
+    <div class="confirmation-card">
+      <i class="fas fa-check-circle success-icon"></i>
+      <div class="confirmation-title">Booking Confirmed!</div>
+
+      <div class="detail">👤 Name: <span id="userName"></span></div>
+      <div class="detail">🎬 Movie: <span id="movieName"></span></div>
+      <div class="detail">📅 Date: <span id="movieDate"></span></div>
+      <div class="detail">⏰ Time: <span id="movieTime"></span></div>
+      <div class="detail">🪑 Seats: <span id="seatCount"></span></div>
+      <div class="detail">💵 Total Paid: <span id="totalPaid"></span></div>
+      <div class="detail">🎟️ Ticket ID: <span id="ticketId"></span></div>
+
+      <button class="btn-download" id="downloadBtn">Download Ticket (PDF)</button>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const title = params.get("title");
+    const seats = params.get("seats");
+    const total = params.get("total");
+    const date = params.get("date");
+    const time = params.get("time");
+
+    // Get the user from localStorage
+    const storedUser = JSON.parse(localStorage.getItem("cinewaveUser"));
+    const userName = storedUser ? storedUser.name : "Guest";
+
+    // Generate a unique CineWave Ticket ID
+    function generateTicketId() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let id = "#CW-";
+      for (let i = 0; i < 8; i++) id += chars.charAt(Math.floor(Math.random() * chars.length));
+      return id;
+    }
+    const ticketId = generateTicketId();
+
+    // Fill confirmation details
+    document.getElementById("userName").textContent = userName;
+    document.getElementById("movieName").textContent = title;
+    document.getElementById("seatCount").textContent = seats;
+    document.getElementById("totalPaid").textContent = total + " FCFA";
+    document.getElementById("movieDate").textContent = date;
+    document.getElementById("movieTime").textContent = time;
+    document.getElementById("ticketId").textContent = ticketId;
+
+    // PDF generation with your SAME ticket style (green + white)
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+        format: [150, 70]
+      });
+
+      // 1. Background and Border
+      doc.setFillColor(173, 255, 47); // Your Golden Green
+      doc.rect(0, 0, 150, 70, 'F');
+      doc.setLineWidth(0.5);
+      doc.rect(5, 5, 140, 60); // Main border
+      doc.line(105, 5, 105, 65); // Divider line
+
+      // 2. Header
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(18);
+      doc.text("CINEWAVE TICKET", 10, 15);
+      doc.line(10, 17, 95, 17); // Underline (moved up slightly)
+
+      // 3. Left Side Details (Fixed Spacing)
+      doc.setFontSize(11);
+
+      // Labels - x=10
+      doc.setFont("helvetica", "bold");
+      doc.text("Name:", 10, 26);  // Moved down from 22 to avoid touching header line
+      doc.text("Movie:", 10, 34);
+      doc.text("Date:", 10, 42);
+      doc.text("Time:", 10, 50);
+      doc.text("Seats:", 10, 58);
+
+      // Values - x=30 (prevents overlapping labels)
+      doc.setFont("helvetica", "normal");
+      doc.text(userName, 30, 26);
+      doc.text(title, 30, 34);
+      doc.text(date, 30, 42);
+      doc.text(time, 30, 50);
+      doc.text(seats, 30, 58);
+
+      // 4. Right Stub (Fixed Ticket ID Overlap)
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(11);
+      doc.text("TOTAL", 110, 30);
+
+      doc.setFontSize(14);
+      doc.text(`${total} FCFA`, 110, 38);
+
+      // Reduced Ticket ID font size to ensure it doesn't hit the border
+      doc.setFontSize(8); 
+      doc.setFont("helvetica", "normal");
+      doc.text(`ID: ${ticketId}`, 110, 48);
+
+      // Footer
+      doc.setFontSize(8);
+      doc.setFont("helvetica", "italic");
+      doc.text("Enjoy your movie!", 110, 58);
+
+      doc.save(`${title}-Ticket.pdf`);
+    });
+  </script>
+  <script>
+    // --- CineWave Auth System Integration ---
+    const user = JSON.parse(localStorage.getItem("cinewaveUser"));
+    const profileContainer = document.querySelector(".profile-container");
+    const profileText = document.querySelector(".profile-text-container") || document.createElement("div");
+
+    if (!user) {
+      // Redirect to login page if user not logged in
+      window.location.href = "login.html";
+    } else {
+      // Show "Welcome, [Name]" and Logout button
+      if (profileText) {
+        profileText.innerHTML = `
+          <strong>${user.name.split(" ")[0]} 🎬</strong>
+          <button id="logoutBtn" style="
+            margin-left:10px;
+            background:#4dbf00;
+            border:none;
+            color:white;
+            padding:5px 10px;
+            border-radius:6px;
+            cursor:pointer;
+            font-size:14px;
+          ">Logout</button>
+        `;
+      }
+    }
+
+    // Handle logout
+    document.addEventListener("click", (e) => {
+      if (e.target.id === "logoutBtn") {
+        localStorage.removeItem("cinewaveUser");
+        alert("You have been logged out.");
+        window.location.href = "login.html";
+      }
+    });
+  </script>
+  <script src="app.js"></script>
+  <script src="api-helper.js"></script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confirmation | CineWave</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/a2e0e6adf4.js" crossorigin="anonymous"></script>
+  <!-- jsPDF Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    body {
+      background-color: #151515;
+      color: white;
+      font-family: "Roboto", sans-serif;
+    }
+    .confirmation-container {
+      margin-left: 50px;
+      padding: 80px 50px;
+      text-align: center;
+      min-height: 100vh;
+      background-image: url("img/cinema2.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .confirmation-card {
+      background-color: #1e1e1e;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 0 15px rgba(77, 191, 0, 0.3);
+    }
+    .success-icon {
+      font-size: 60px;
+      color: #4dbf00;
+      margin-bottom: 15px;
+    }
+    .confirmation-title {
+      font-family: "Sen", sans-serif;
+      font-size: 30px;
+      color: #4dbf00;
+      margin-bottom: 15px;
+    }
+    .detail {
+      font-size: 18px;
+      margin: 8px 0;
+      color: #ccc;
+    }
+    .detail span {
+      color: #4dbf00;
+      font-weight: bold;
+    }
+    /* Style spécial pour les numéros de sièges */
+    .seat-numbers {
+      background: #2a2a2a;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-left: 4px solid #4dbf00;
+    }
+    .seat-numbers span {
+      color: #4dbf00;
+      font-weight: bold;
+      font-family: 'Courier New', monospace;
+    }
+    .btn-download {
+      background-color: #4dbf00;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 30px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 25px;
+      transition: 0.3s;
+    }
+    .btn-download:hover {
+      background-color: #3a9c00;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-container">
+      <div class="logo-container">
+        <h1 class="logo">CineWave 🎬</h1>
+      </div>
+      <div class="menu-container">
+        <ul class="menu-list">
+          <li class="menu-list-item"><a href="index.html">Home</a></li>
+        </ul>
+      </div>
+      <div class="profile-container">
+        <img class="profile-picture" src="img/profile.jpg" alt="Profile" />
+        <div class="profile-text-container">
+          <strong>Profile</strong>
+        </div>
+        <div class="toggle">
+          <i class="fas fa-moon toggle-icon"></i>
+          <i class="fas fa-sun toggle-icon"></i>
+          <div class="toggle-ball"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a href="index.html"><i class="left-menu-icon fas fa-home"></i></a>
+    <a href="about.html"><i class="left-menu-icon fas fa-users"></i></a>
+    <i class="left-menu-icon fas fa-search"></i>
+    <i class="left-menu-icon fas fa-info-circle"></i>
+  </div>
+
+  <!-- Confirmation Content -->
+  <div class="confirmation-container">
+    <div class="confirmation-card">
+      <i class="fas fa-check-circle success-icon"></i>
+      <div class="confirmation-title">Booking Confirmed!</div>
+
+      <div class="detail"> Name: <span id="userName"></span></div>
+      <div class="detail"> Movie: <span id="movieName"></span></div>
+      <div class="detail"> Date: <span id="movieDate"></span></div>
+      <div class="detail"> Time: <span id="movieTime"></span></div>
+      
+      <!-- NOUVEAU: Affichage des numéros de sièges -->
+      <div class="seat-numbers">
+        🪑 Seats: <span id="seatNumbers"></span>
+      </div>
+      
+      <div class="detail"> Total Paid: <span id="totalPaid"></span></div>
+      <div class="detail"> Ticket ID: <span id="ticketId"></span></div>
+
+      <button class="btn-download" id="downloadBtn">Download Ticket (PDF)</button>
+    </div>
+  </div>
+
+  <script src="api-helper.js"></script>
+  <script>
+    // ============================================
+    // RÉCUPÉRATION DES PARAMÈTRES
+    // ============================================
+    const params = new URLSearchParams(window.location.search);
+    const title = params.get("title");
+    const seats = params.get("seats");
+    const seatNumbers = params.get("seatNumbers"); // NOUVEAU
+    const total = params.get("total");
+    const date = params.get("date");
+    const time = params.get("time");
+    const ticketId = params.get("ticketId"); // NOUVEAU - Ticket ID de l'API
+    const bookingId = params.get("bookingId");
+
+    // Get the user from localStorage
+    const storedUser = JSON.parse(localStorage.getItem("cinewaveUser"));
+    const userName = storedUser ? storedUser.name : "Guest";
+
+    // Utiliser le ticket ID de l'API (prioritaire) ou générer un fallback
+    const finalTicketId = ticketId || generateTicketId();
+
+    function generateTicketId() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let id = "CW-";
+      for (let i = 0; i < 8; i++) id += chars.charAt(Math.floor(Math.random() * chars.length));
+      return id;
+    }
+
+    // ============================================
+    // AFFICHAGE DES INFORMATIONS
+    // ============================================
+    document.getElementById("userName").textContent = userName;
+    document.getElementById("movieName").textContent = title;
+    document.getElementById("movieDate").textContent = date;
+    document.getElementById("movieTime").textContent = time;
+    
+    // NOUVEAU: Afficher les numéros de sièges avec formatage
+    if (seatNumbers) {
+      // Remplacer les virgules par des espaces pour un meilleur affichage
+      const formattedSeats = seatNumbers.replace(/,/g, ', ');
+      document.getElementById("seatNumbers").textContent = formattedSeats;
+    } else {
+      document.getElementById("seatNumbers").textContent = `${seats} seat(s)`;
+    }
+    
+    document.getElementById("totalPaid").textContent = total + " FCFA";
+    document.getElementById("ticketId").textContent = finalTicketId;
+
+    console.log('🎫 Confirmation Details:', {
+      ticketId: finalTicketId,
+      movie: title,
+      seats: seatNumbers || seats,
+      total: total,
+      date: date,
+      time: time
+    });
+
+    // ============================================
+    // GÉNÉRATION DU PDF
+    // ============================================
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+        format: [150, 70]
+      });
+
+      // 1. Background and Border
+      doc.setFillColor(173, 255, 47); // Golden Green
+      doc.rect(0, 0, 150, 70, 'F');
+      doc.setLineWidth(0.5);
+      doc.rect(5, 5, 140, 60); // Main border
+      doc.line(105, 5, 105, 65); // Divider line
+
+      // 2. Header
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(18);
+      doc.text("CINEWAVE TICKET", 10, 15);
+      doc.line(10, 17, 95, 17); // Underline
+
+      // 3. Left Side Details
+      doc.setFontSize(10);
+
+      // Labels
+      doc.setFont("helvetica", "bold");
+      doc.text("Name:", 10, 25);
+      doc.text("Movie:", 10, 32);
+      doc.text("Date:", 10, 39);
+      doc.text("Time:", 10, 46);
+      doc.text("Seats:", 10, 53); // Label pour les sièges
+
+      // Values
+      doc.setFont("helvetica", "normal");
+      doc.text(userName, 28, 25);
+      
+      // Tronquer le titre si trop long
+      const movieTitle = title.length > 30 ? title.substring(0, 30) + '...' : title;
+      doc.text(movieTitle, 28, 32);
+      
+      doc.text(date, 28, 39);
+      doc.text(time, 28, 46);
+      
+      // NOUVEAU: Afficher les numéros de sièges sur le PDF
+      if (seatNumbers) {
+        const formattedSeats = seatNumbers.replace(/,/g, ', ');
+        // Tronquer si trop long (max 35 caractères)
+        const seatsText = formattedSeats.length > 35 
+          ? formattedSeats.substring(0, 35) + '...' 
+          : formattedSeats;
+        doc.text(seatsText, 28, 53);
+      } else {
+        doc.text(`${seats} seat(s)`, 28, 53);
+      }
+
+      // 4. Right Stub
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(11);
+      doc.text("TOTAL", 110, 28);
+
+      doc.setFontSize(14);
+      doc.text(`${total} FCFA`, 110, 36);
+
+      // Ticket ID - UTILISER LE VRAI TICKET ID
+      doc.setFontSize(7);
+      doc.setFont("helvetica", "normal");
+      doc.text(`ID: ${finalTicketId}`, 110, 46);
+
+      // Footer
+      doc.setFontSize(7);
+      doc.setFont("helvetica", "italic");
+      doc.text("Enjoy your movie!", 110, 56);
+
+      // Sauvegarder avec le Ticket ID dans le nom
+      doc.save(`CineWave-${finalTicketId}.pdf`);
+      
+      console.log('✅ Ticket PDF téléchargé:', `CineWave-${finalTicketId}.pdf`);
+    });
+
+    // ============================================
+    // GESTION DU PROFIL
+    // ============================================
+    // Auth system integration
+    const user = JSON.parse(localStorage.getItem("cinewaveUser"));
+    const profileContainer = document.querySelector(".profile-container");
+    const profileText = document.querySelector(".profile-text-container") || document.createElement("div");
+
+    if (!user) {
+      // Redirect to login page if user not logged in
+      window.location.href = "login.html";
+    } else {
+      // Show "Welcome, [Name]" and Logout button
+      if (profileText) {
+        profileText.innerHTML = `
+          <strong>${user.name.split(" ")[0]} 🎬</strong>
+          <button id="logoutBtn" style="
+            margin-left:10px;
+            background:#4dbf00;
+            border:none;
+            color:white;
+            padding:5px 10px;
+            border-radius:6px;
+            cursor:pointer;
+            font-size:14px;
+          ">Logout</button>
+        `;
+      }
+    }
+
+    // Handle logout
+    document.addEventListener("click", (e) => {
+      if (e.target.id === "logoutBtn") {
+        localStorage.removeItem("cinewaveUser");
+        localStorage.removeItem("cinewaveToken");
+        alert("You have been logged out.");
+        window.location.href = "login.html";
+      }
+    });
+
+    // ============================================
+    // LOG POUR LE DÉBOGAGE
+    // ============================================
+    console.log(`
+╔════════════════════════════════════════╗
+║   🎬 CINEWAVE BOOKING CONFIRMATION    ║
+╠════════════════════════════════════════╣
+║ Ticket ID: ${finalTicketId}           
+║ Movie: ${title}                        
+║ Seats: ${seatNumbers || seats}         
+║ Total: ${total} FCFA                   
+║ Date: ${date} ${time}                  
+╚════════════════════════════════════════╝
+    `);
+  </script>
+</body>
+</html>
